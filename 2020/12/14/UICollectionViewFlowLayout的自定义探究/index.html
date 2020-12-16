@@ -399,7 +399,7 @@
 <p>新建一个文件继承自UICollectionViewFlowLayout，命名为FirstCellZoomInLayoutTwo</p>
 <p>在.h文件中，定义相应的协议，协议中定义一个协议方法，用于实现对第一个cell的frame放大</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@protocol FirstCellZoomInLayoutTwoDelegate &lt;UICollectionViewDelegateFlowLayout&gt;</span><br><span class="line"></span><br><span class="line">- (CGSize)sizeForFirstCell;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
-<p>.h文件中定义相应的协议<br>@property (nonatomic, weak) id<FirstCellZoomInLayoutTwoDelegate> delegate;<br>在.m文件中</p>
+<p>.h文件中定义相应的协议<br>@property (nonatomic, weak) id<FirstCellZoomInLayoutTwoDelegate> delegate;<br>在.m文件中</FirstCellZoomInLayoutTwoDelegate></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)prepareLayout &#123;</span><br><span class="line">    [super prepareLayout];</span><br><span class="line">    &#x2F;&#x2F;必须要设置，因为默认的滑动方向是竖直滑动</span><br><span class="line">    self.scrollDirection &#x3D; UICollectionViewScrollDirectionHorizontal;&#x2F;&#x2F;设置滑动方向为水平滑动</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在ThirdViewController.m中，遵守协议，实现相应的协议方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (CGSize)sizeForFirstCell &#123;</span><br><span class="line">    return CGSizeMake(120, 150);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -448,6 +448,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/16/title-md/" rel="prev" title=":title.md">
+                :title.md <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -528,7 +532,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

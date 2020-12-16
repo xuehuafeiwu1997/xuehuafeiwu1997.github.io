@@ -81,12 +81,12 @@
 
 
 
-<meta name="description" content="ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。 项目demo地址为：demo地址这次主要实现的布局主要有以下三种： -不规则高度瀑布流两列排序-瀑布流不规则高度多列排列-横向滑动第一个cell放大主要介绍这三种布局通过自定义UICollectionViewFlowLayout如何实现">
+<meta name="description" content="ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。 项目demo地址为：demo地址这次主要实现的布局主要有以下三种： -不规则高度瀑布流两列排序-瀑布流不规则高度多列排列-横向滑动第一个cell放大主要介绍这三种布局通过自定义UICollectionViewFlowLayout如何">
 <meta property="og:type" content="article">
 <meta property="og:title" content="自定义Flowlayout探究">
 <meta property="og:url" content="http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/index.html">
 <meta property="og:site_name" content="落叶兮兮">
-<meta property="og:description" content="ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。 项目demo地址为：demo地址这次主要实现的布局主要有以下三种： -不规则高度瀑布流两列排序-瀑布流不规则高度多列排列-横向滑动第一个cell放大主要介绍这三种布局通过自定义UICollectionViewFlowLayout如何实现">
+<meta property="og:description" content="ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。 项目demo地址为：demo地址这次主要实现的布局主要有以下三种： -不规则高度瀑布流两列排序-瀑布流不规则高度多列排列-横向滑动第一个cell放大主要介绍这三种布局通过自定义UICollectionViewFlowLayout如何">
 <meta property="og:locale">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-856f6f3d573d08f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-3bd35cd8f716a86a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-26c628d9b1769e5b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-1b73b30d2859393e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2020-12-14T02:40:15.000Z">
-<meta property="article:modified_time" content="2020-12-16T02:57:40.900Z">
+<meta property="article:modified_time" content="2020-12-16T02:59:41.213Z">
 <meta property="article:author" content="落叶兮兮">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-856f6f3d573d08f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -347,7 +347,9 @@
       
 
       
-        <p>ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。</p>
+        <meta name="referrer" content="no-referrer">
+
+<p>ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。</p>
 <p>项目demo地址为：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/UICollectionViewFlowLayout-Explore.git">demo地址</a><br>这次主要实现的布局主要有以下三种：</p>
 <p>-不规则高度瀑布流两列排序<br><img src="https://upload-images.jianshu.io/upload_images/18811075-856f6f3d573d08f8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="不规则高度瀑布流两列分布"><br>-瀑布流不规则高度多列排列<br><img src="https://upload-images.jianshu.io/upload_images/18811075-3bd35cd8f716a86a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="宽度一定，三列排列的情况"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-7d2ed78c137c4148.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="宽度一定，多列排列的情况"><br>-横向滑动第一个cell放大<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6e37fd342e4df971.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="横向滑动第一个cell放大"><br>主要介绍这三种布局通过自定义UICollectionViewFlowLayout如何实现，demo的GitHub链接放在文末</p>
 <p>#瀑布流不规则高度两列布局<br>在demo中的实现的文件名为firstViewController.m和waterFlowLayout.m，定义一个array数组，用于保存不规则的高度</p>

@@ -30,28 +30,6 @@
   </entry>
   
   <entry>
-    <title>自定义FlowLayout探究</title>
-    <link href="http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/"/>
-    <id>http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/</id>
-    <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2020-12-14T07:03:19.389Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。&lt;/p&gt;
-&lt;p&gt;项目demo地址为：&lt;br&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>Hello World</title>
     <link href="http://example.com/2020/12/11/hello-world/"/>
     <id>http://example.com/2020/12/11/hello-world/</id>

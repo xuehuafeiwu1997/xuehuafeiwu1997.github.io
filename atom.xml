@@ -60,6 +60,29 @@
   </entry>
   
   <entry>
+    <title>socket通信原理</title>
+    <link href="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/"/>
+    <id>http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/</id>
+    <published>2020-12-14T02:40:15.000Z</published>
+    <updated>2021-01-08T11:12:35.304Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现&lt;/p&gt;
+&lt;p&gt;这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket&lt;/p&gt;
+&lt;p&gt;因为需要有服务器充</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>Hello World</title>
     <link href="http://example.com/2020/12/11/hello-world/"/>
     <id>http://example.com/2020/12/11/hello-world/</id>

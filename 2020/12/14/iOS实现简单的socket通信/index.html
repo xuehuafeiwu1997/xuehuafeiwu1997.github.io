@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="落叶兮兮" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现 这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket 因为需要有服务器充当角色，没有相应的服务器，使用mac自带的apache服务器并没有配置成功，之后参考网上的写法 iOS上的app充当客户端，mac上的app充当服务器（x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="socket通信原理">
+<meta property="og:url" content="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/index.html">
+<meta property="og:site_name" content="落叶兮兮">
+<meta property="og:description" content="最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现 这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket 因为需要有服务器充当角色，没有相应的服务器，使用mac自带的apache服务器并没有配置成功，之后参考网上的写法 iOS上的app充当客户端，mac上的app充当服务器（x">
+<meta property="og:locale">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-6d981da0da13c413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-fb08132f0db7e8a5.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-10e610b81a0f6296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-fb04cd43ef4c90ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-e09f7fb1d2a1bae9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-3153cdeb6ca0f119.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-628ad1977940c25f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-6d981da0da13c413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-fb08132f0db7e8a5.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-10e610b81a0f6296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2020-12-14T02:40:15.000Z">
+<meta property="article:modified_time" content="2021-01-08T11:12:35.304Z">
+<meta property="article:author" content="落叶兮兮">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-6d981da0da13c413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2020/12/14/iOS实现简单的socket通信/"/>
+
+
+
+
+
+  <title>socket通信原理 | 落叶兮兮</title>
+  
+
+
+
+
+
+
+
+
+  <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶兮兮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">socket通信原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-14T10:40:15+08:00">
+                2020-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现</p>
+<p>这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket</p>
+<p>因为需要有服务器充当角色，没有相应的服务器，使用mac自带的apache服务器并没有配置成功，之后参考网上的写法</p>
+<p>iOS上的app充当客户端，mac上的app充当服务器（xcode新建project时选择macOs中的app选项）</p>
+<p>GitHub的相关地址为：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/socketClient.git">socketClient</a><br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/socketServer.git">socketServer</a></p>
+<p>最终的效果图为：<br>先在mac上运行socketServer项目，开启服务器<br>控制台输出结果：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6d981da0da13c413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="socketServer最初运行结果"></p>
+<p>之后在iphone上运行socketClient项目<br>tcp测试时的效果图：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-fb08132f0db7e8a5.gif?imageMogr2/auto-orient/strip" alt="tcp传输.gif"><br>点击发送后<br>socketSercer项目的控制台输出为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-10e610b81a0f6296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="服务器接受相应的结果"></p>
+<p>udp的效果图和tcp一样，不再复述</p>
+<p>#tcp实现<br>##tcpServer的实现<br>对应的实现文件是：<br>socketClient项目中的tcpViewController,<br>socketServer项目中的TcpServer</p>
+<p>首先，先新建一个project，选择macOs的app，在mac上运行充当服务器</p>
+<p>之后新建一个文件，继承自NSObject，命名为TcpServer<br>使用的第三方框架CocoaAsyncSocket中，作者有英文介绍服务器方面代码的写法，相应的连接如下：<br><a target="_blank" rel="noopener" href="https://github.com/robbiehanson/CocoaAsyncSocket/wiki/Intro_GCDAsyncSocket">CocoaAsyncSocket说明文档</a><br><img src="https://upload-images.jianshu.io/upload_images/18811075-fb04cd43ef4c90ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Server的大致写法"></p>
+<p>参考作者提供的例子，在TcpServer中，我们在.h文件中，声明一个对外的方法，</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startTcpServer;</span><br></pre></td></tr></table></figure>
+<p>另外，声明两个属性</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) GCDAsyncSocket *listenSocket;<span class="comment">//监听socket</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *clientSocketArray;<span class="comment">//这里用来保存socket，如果不保存的话，socket会被直接dealloc，然后就会出现服务器断开连接的错误</span></span><br></pre></td></tr></table></figure>
+<p>在.m文件中，实现clientSocketArray懒加载</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (NSMutableArray *)clientSocketArray &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">_clientSocketArray</span>) &#123;</span><br><span class="line">        return <span class="variable">_clientSocketArray</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable">_clientSocketArray</span> = [NSMutableArray array];</span><br><span class="line">    return <span class="variable">_clientSocketArray</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现startTcpServer方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.listenSocket = [[GCDAsyncSocket alloc] initWithDelegate:<span class="keyword">self</span> delegateQueue:dispatch_get_main_queue()];</span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">//这里我使用的port端口为5556，也可以使用其他的端口，重要的是要和客户端写的保持一致</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span>.listenSocket acceptOnPort:<span class="number">5556</span> error:&amp;error]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;tcp服务开启失败，失败的原因为%@&quot;</span>,error);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;tcp服务开启成功&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>让该类遵守协议GCDAsyncSocketDelegate，实现相应的协议方法</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//当socket连接成功后，执行这个方法，然后会产生一个新的socket来处理连接，如果想要处理连接，必须retain这个socket（使其不被释放），这就是我们前面定义clientSocketArray数组的原因</span></span><br><span class="line">- (<span class="keyword">void</span>)<span class="attr">socket:</span>(GCDAsyncSocket *)sock <span class="attr">didAcceptNewSocket:</span>(GCDAsyncSocket *)newSocket &#123;</span><br><span class="line">   <span class="comment">//为了对连接进行处理，必须保证newSocket retain，不被释放，我们使用数组将其加入</span></span><br><span class="line">    [self.clientSocketArray <span class="attr">addObject:</span>newSocket];</span><br><span class="line">    NSLog(@<span class="string">&quot;执行了这个方法&quot;</span>);</span><br><span class="line">   <span class="comment">//开始读取数据，timeOut为负值表示没有时间限制，读取数据完毕，执行socket:didReadData:withTag: 这个协议方法</span></span><br><span class="line">    [newSocket <span class="attr">readDataWithTimeout:</span><span class="number">-1</span> <span class="attr">tag:</span>self.clientSocketArray.count];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取数据完成后，执行这个方法</span></span><br><span class="line">- (<span class="keyword">void</span>)<span class="attr">socket:</span>(GCDAsyncSocket *)sock <span class="attr">didReadData:</span>(NSData *)data <span class="attr">withTag:</span>(<span class="keyword">long</span>)tag &#123;</span><br><span class="line">    NSLog(@<span class="string">&quot;当前的data为%@&quot;</span>,data);</span><br><span class="line">    NSLog(@<span class="string">&quot;当前的tag为%ld&quot;</span>,tag);</span><br><span class="line"><span class="comment">//将NSData数据类型转变为NSString</span></span><br><span class="line">    NSString *result = [[NSString alloc] <span class="attr">initWithData:</span>data <span class="attr">encoding:</span>NSUTF8StringEncoding];</span><br><span class="line">    NSLog(@<span class="string">&quot;客户端传来的字符为:%@&quot;</span>,result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)<span class="attr">socket:</span>(GCDAsyncSocket *)sock <span class="attr">didConnectToHost:</span>(NSString *)host <span class="attr">port:</span>(uint16_t)port &#123;</span><br><span class="line">    NSLog(@<span class="string">&quot;当前服务器的IP地址为%@&quot;</span>,host);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)<span class="attr">socketDidDisconnect:</span>(GCDAsyncSocket *)sock <span class="attr">withError:</span>(NSError *)err &#123;</span><br><span class="line">    NSLog(@<span class="string">&quot;服务器断开了连接，错误为%@&quot;</span>,err);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们不使用clientSocketArray数组保存newSocket的话，在客户端开始传值时，server的控制台会输出以下信息<br><img src="https://upload-images.jianshu.io/upload_images/18811075-e09f7fb1d2a1bae9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>意思就是newSocket被回收，导致连接中断<br>所以，clientSocketArray的作用很大</p>
+<p>之后，在main.m文件中，</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="built_in">int</span> <span class="title">main</span>(<span class="params"><span class="built_in">int</span> argc, <span class="keyword">const</span> <span class="built_in">char</span> * argv[]</span>)</span> &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        <span class="comment">// Setup code that might create autoreleased objects goes here.</span></span><br><span class="line">        TcpServer *tcpServer = [[TcpServer alloc] <span class="keyword">init</span>];</span><br><span class="line">        [<span class="meta">tcpServer startTcpServer</span>];</span><br><span class="line">        </span><br><span class="line">        UdpServer *udpServer = [[UdpServer alloc] <span class="keyword">init</span>];</span><br><span class="line">        [<span class="meta">udpServer startUdpServer</span>];</span><br><span class="line">        <span class="comment">//开启主运行循环</span></span><br><span class="line">        [<span class="meta">[NSRunLoop mainRunLoop</span>] run];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> NSApplicationMain(argc, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行之后的输出结果为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-3153cdeb6ca0f119.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="serverSocket中最初的运行结果"></p>
+<p>##tcpClient的实现<br>新建一个projiect，选择iOS中的app，运行在iphone手机上，命名为clientForSocketCommunication，新建文件tcpViewController，继承于UIViewController，</p>
+<p>在.h文件中，声明相关的属性</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UITextField</span> *textField;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) GCDAsyncSocket *clientSocket;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *sendButton;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *textArr;</span><br></pre></td></tr></table></figure>
+<p>在.m中实现相应的懒加载</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UITextField</span> *)textField &#123;</span><br><span class="line">    <span class="keyword">if</span> (_textField) &#123;</span><br><span class="line">        <span class="keyword">return</span> _textField;</span><br><span class="line">    &#125;</span><br><span class="line">    _textField = [[<span class="built_in">UITextField</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.view.bounds.size.width - <span class="number">60</span>, <span class="number">60</span>)];</span><br><span class="line">    _textField.backgroundColor = [<span class="built_in">UIColor</span> grayColor];</span><br><span class="line">    _textField.textColor = [<span class="built_in">UIColor</span> blackColor];</span><br><span class="line">    _textField.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="keyword">return</span> _textField;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *)textArr &#123;</span><br><span class="line">    <span class="keyword">if</span> (_textArr) &#123;</span><br><span class="line">        <span class="keyword">return</span> _textArr;</span><br><span class="line">    &#125;</span><br><span class="line">    _textArr = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="keyword">return</span> _textArr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)sendButton &#123;</span><br><span class="line">    <span class="keyword">if</span> (_sendButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _sendButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _sendButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>)];</span><br><span class="line">    [_sendButton setTitle:<span class="string">@&quot;发送&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_sendButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_sendButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(sendMessage) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _sendButton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在viewDidload中，实现相应的布局，并且调用开始连接的方法startConnection</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;socket通信中tcp测试客户端&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.textField];</span><br><span class="line">    [<span class="keyword">self</span>.textField mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.left.equalTo(<span class="keyword">self</span>.view).offset(<span class="number">30</span>);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.view).offset(<span class="number">60</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">60</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.sendButton];</span><br><span class="line">    [<span class="keyword">self</span>.sendButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.textField.mas_bottom).offset(<span class="number">30</span>);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> startConnection];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)startConnection &#123;</span><br><span class="line">    <span class="keyword">self</span>.clientSocket = [[GCDAsyncSocket alloc] initWithDelegate:<span class="keyword">self</span> delegateQueue:dispatch_get_main_queue()];</span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line">    <span class="comment">//电脑上的网络名称和手机上的网络ip地址必须一致才行，不然的话协议方法一直无法执行,电脑和手机在同一个局域网内，我的mac电脑的局域网地址是192.168.31.61,使用的端口是5556，必须要和Server里面设置的监听端口保持一致，我用的是5556，也可以使用其他的</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span>.clientSocket connectToHost:<span class="string">@&quot;192.168.31.61&quot;</span> onPort:<span class="number">5556</span> error:&amp;error]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;连接失败，失败的原因是%@&quot;</span>,error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现按钮的点击方法，给server发送消息</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendMessage &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;点击了该方法&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>.textField.text || [<span class="keyword">self</span>.textField.text length] == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;发送的信息不能为空&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span>.textArr addObject:<span class="keyword">self</span>.textField.text];</span><br><span class="line">  <span class="comment">//将NSString的数据类型转换为NSData的数据类型</span></span><br><span class="line">    <span class="built_in">NSData</span> *data = [<span class="keyword">self</span>.textField.text dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">   <span class="comment">//将数据写入套接字，并在完成时调用委托。</span></span><br><span class="line">    [<span class="keyword">self</span>.clientSocket writeData:data withTimeout:<span class="number">-1</span> tag:<span class="keyword">self</span>.textArr.count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来实现相应的协议方法</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#pragma</span> <span class="selector-tag">mark</span> <span class="selector-tag">-</span> <span class="selector-tag">UITextFieldDelegate</span></span><br><span class="line"><span class="selector-tag">-</span> (BOOL)<span class="selector-tag">textFieldShouldReturn</span><span class="selector-pseudo">:(UITextField</span> *)<span class="selector-tag">textField</span> &#123;</span><br><span class="line">    <span class="selector-attr">[self.textField resignFirstResponder]</span>;</span><br><span class="line">    <span class="selector-tag">return</span> <span class="selector-tag">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pragma</span> <span class="selector-tag">mark</span> <span class="selector-tag">-</span> <span class="selector-tag">GCDAsyncSocketDelegate</span></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">socket</span><span class="selector-pseudo">:(GCDAsyncSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">didConnectToHost</span><span class="selector-pseudo">:(NSString</span> *)<span class="selector-tag">host</span> <span class="selector-tag">port</span><span class="selector-pseudo">:(uint16_t)port</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;连接成功，连接的ip地址为%@&quot;</span>,host);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">socketDidDisconnect</span><span class="selector-pseudo">:(GCDAsyncSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">withError</span><span class="selector-pseudo">:(NSError</span> *)<span class="selector-tag">err</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;断开了连接，错误的原因是%@&quot;</span>,err);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">socket</span><span class="selector-pseudo">:(GCDAsyncSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">didReadData</span><span class="selector-pseudo">:(NSData</span> *)<span class="selector-tag">data</span> <span class="selector-tag">withTag</span><span class="selector-pseudo">:(long)tag</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;调用了这个方法&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">socket</span><span class="selector-pseudo">:(GCDAsyncSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">didWriteDataWithTag</span><span class="selector-pseudo">:(long)tag</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;当前发送的是第%ld个请求&quot;</span>,tag);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完成之后，运行socketServer项目，然后运行socketClient，在文本框中输入消息，点击发送，在socketServer项目中的控制台，即可得到相应的传输信息</p>
+<p>#udp实现<br>##udpServer的实现<br>在socketServer项目中，新建一个文件UdpSever，继承于NSObject<br>在.h文件中声明一个对外的方法</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startUdpServer;</span><br></pre></td></tr></table></figure>
+<p>并且声明相应的属性</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">property</span><span class="title"> </span>(nonatomic, strong) GCDAsyncUdpSocket *listenSocket;</span><br></pre></td></tr></table></figure>
+<p>在.m中实现声明的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startUdpServer &#123;</span><br><span class="line">    <span class="keyword">self</span>.listenSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:<span class="keyword">self</span> delegateQueue:dispatch_get_main_queue()];<span class="comment">//队列传递nil，会自动创建一个队列，这里如果自定义队列，一定不能是并发队列</span></span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;的端口，但是必须和客户端的保持一致，不然的话会接收不到数据</span><br><span class="line"><span class="comment">//设置socket对应的port，这里我使用的是5557这个端口，也可以使用其他</span></span><br><span class="line">    [<span class="keyword">self</span>.listenSocket bindToPort:<span class="number">5557</span> error:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;开启udp服务失败，失败的原因是%@&quot;</span>,error);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;开启udp服务成功&quot;</span>);</span><br><span class="line">        <span class="built_in">NSError</span> *err = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">//        [self.listenSocket receiveOnce:&amp;err];//该方法表示只接受一次数据，接收客户端发过来的数据一次之后，就不再接收</span></span><br><span class="line">        [<span class="keyword">self</span>.listenSocket beginReceiving:&amp;err];<span class="comment">//该方法表示多次接收数据</span></span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;接收数据失败&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>实现相应的协议方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - GCDAsyncUdpSocketDelegate</span></span><br><span class="line">- (<span class="keyword">void</span>)udpSocket:(GCDAsyncUdpSocket *)sock didConnectToAddress:(<span class="built_in">NSData</span> *)address &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了这个方法，address结果为%@&quot;</span>,address);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)udpSocket:(GCDAsyncUdpSocket *)sock didReceiveData:(<span class="built_in">NSData</span> *)data</span><br><span class="line">                                             fromAddress:(<span class="built_in">NSData</span> *)address</span><br><span class="line">withFilterContext:(<span class="keyword">nullable</span> <span class="keyword">id</span>)filterContext &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;接受数据的ip地址为%@&quot;</span>,address);</span><br><span class="line">    <span class="built_in">NSString</span> *result = [[<span class="built_in">NSString</span> alloc] initWithData:data encoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;从客户端传来的数据为%@&quot;</span>,result);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后，同样的在main.m文件中添加以下代码</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">int</span> <span class="title">main</span>(<span class="params"><span class="built_in">int</span> argc, <span class="keyword">const</span> <span class="built_in">char</span> * argv[]</span>)</span> &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        <span class="comment">// Setup code that might create autoreleased objects goes here.</span></span><br><span class="line">        TcpServer *tcpServer = [[TcpServer alloc] <span class="keyword">init</span>];</span><br><span class="line">        [<span class="meta">tcpServer startTcpServer</span>];</span><br><span class="line">        </span><br><span class="line">        UdpServer *udpServer = [[UdpServer alloc] <span class="keyword">init</span>];</span><br><span class="line">        [<span class="meta">udpServer startUdpServer</span>];</span><br><span class="line">        <span class="comment">//开启主运行循环</span></span><br><span class="line">        [<span class="meta">[NSRunLoop mainRunLoop</span>] run];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> NSApplicationMain(argc, argv);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行程序，控制台的输出结果为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-628ad1977940c25f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="socketServer运行结果"></p>
+<p>##udpClient的实现<br>在socketClient中，新建文件UdpViewController，继承于UIViewController，<br>在.h文件中，声明相应的属性</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UITextField</span> *textField;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) GCDAsyncUdpSocket *clientSocket;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *sendButton;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *textArr;</span><br></pre></td></tr></table></figure>
+<p>在.m文件中，实现相应的懒加载</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UITextField</span> *)textField &#123;</span><br><span class="line">    <span class="keyword">if</span> (_textField) &#123;</span><br><span class="line">        <span class="keyword">return</span> _textField;</span><br><span class="line">    &#125;</span><br><span class="line">    _textField = [[<span class="built_in">UITextField</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">self</span>.view.bounds.size.width - <span class="number">60</span>, <span class="number">60</span>)];</span><br><span class="line">    _textField.backgroundColor = [<span class="built_in">UIColor</span> grayColor];</span><br><span class="line">    _textField.textColor = [<span class="built_in">UIColor</span> blackColor];</span><br><span class="line">    _textField.delegate = <span class="keyword">self</span>;</span><br><span class="line">    <span class="keyword">return</span> _textField;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSMutableArray</span> *)textArr &#123;</span><br><span class="line">    <span class="keyword">if</span> (_textArr) &#123;</span><br><span class="line">        <span class="keyword">return</span> _textArr;</span><br><span class="line">    &#125;</span><br><span class="line">    _textArr = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="keyword">return</span> _textArr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)sendButton &#123;</span><br><span class="line">    <span class="keyword">if</span> (_sendButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _sendButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _sendButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>)];</span><br><span class="line">    [_sendButton setTitle:<span class="string">@&quot;发送&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_sendButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_sendButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(sendMessage) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _sendButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在viewDidload中实现相应的布局,并且开始调用startConnection方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;socket通信中udp测试客户端&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.textField];</span><br><span class="line">    [<span class="keyword">self</span>.textField mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.left.equalTo(<span class="keyword">self</span>.view).offset(<span class="number">30</span>);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.view).offset(<span class="number">60</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">60</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.sendButton];</span><br><span class="line">    [<span class="keyword">self</span>.sendButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.textField.mas_bottom).offset(<span class="number">30</span>);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> startConnection];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)startConnection &#123;</span><br><span class="line">    <span class="keyword">self</span>.clientSocket = [[GCDAsyncUdpSocket alloc] initWithDelegate:<span class="keyword">self</span> delegateQueue:dispatch_get_main_queue()];</span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line">  <span class="comment">//端口这里使用的是5557，也可以使用5558，都行，这里无所谓，重要的是下面发送数据时host和port一定要和服务器保持一致，下面的这部分代码其实也可以不写</span></span><br><span class="line">    [<span class="keyword">self</span>.clientSocket bindToPort:<span class="number">5557</span> error:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;绑定端口失败，失败的原因是%@&quot;</span>,error);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现点击按钮发送消息的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)sendMessage &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>.textField.text || [<span class="keyword">self</span>.textField.text length] == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;开始发送数据&quot;</span>);</span><br><span class="line">    [<span class="keyword">self</span>.textArr addObject:<span class="keyword">self</span>.textField.text];</span><br><span class="line">    <span class="built_in">NSData</span> *data = [<span class="keyword">self</span>.textField.text dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">   <span class="comment">//192.168.31.61是我mac电脑连接网路的地址，5557是服务器监听的port，一定要和服务器保持一致</span></span><br><span class="line">    [<span class="keyword">self</span>.clientSocket sendData:data toHost:<span class="string">@&quot;192.168.31.61&quot;</span> port:<span class="number">5557</span> withTimeout:<span class="number">-1</span> tag:<span class="keyword">self</span>.textArr.count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现相应的协议方法</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#pragma</span> <span class="selector-tag">mark</span> <span class="selector-tag">-</span> <span class="selector-tag">delegate</span></span><br><span class="line"><span class="selector-tag">-</span> (BOOL)<span class="selector-tag">textFieldShouldReturn</span><span class="selector-pseudo">:(UITextField</span> *)<span class="selector-tag">textField</span> &#123;</span><br><span class="line">    <span class="selector-attr">[self.textField resignFirstResponder]</span>;</span><br><span class="line">    <span class="selector-tag">return</span> <span class="selector-tag">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#pragma</span> <span class="selector-tag">mark</span> <span class="selector-tag">-</span> <span class="selector-tag">GCDAsyncUdpSocketDelegate</span></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">udpSocket</span><span class="selector-pseudo">:(GCDAsyncUdpSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">didSendDataWithTag</span><span class="selector-pseudo">:(long)tag</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;调用了该方法&quot;</span>);</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;这是发出的第%ld个请求&quot;</span>,tag);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">udpSocket</span><span class="selector-pseudo">:(GCDAsyncUdpSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">didNotSendDataWithTag</span><span class="selector-pseudo">:(long)tag</span> <span class="selector-tag">dueToError</span><span class="selector-pseudo">:(NSError</span> *)<span class="selector-tag">error</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;tag为%ld的数据发送错误&quot;</span>,tag);</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;错误的原因为%@&quot;</span>,error);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">udpSocketDidClose</span><span class="selector-pseudo">:(GCDAsyncUdpSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">withError</span><span class="selector-pseudo">:(NSError</span>  * <span class="selector-tag">_Nullable</span>)<span class="selector-tag">error</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;socket被关闭&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">udpSocket</span><span class="selector-pseudo">:(GCDAsyncUdpSocket</span> *)<span class="selector-tag">sock</span> <span class="selector-tag">didNotConnect</span><span class="selector-pseudo">:(NSError</span> * <span class="selector-tag">_Nullable</span>)<span class="selector-tag">error</span> &#123;</span><br><span class="line">    <span class="selector-tag">NSLog</span>(@<span class="string">&quot;并没有连接，连接失败&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>先运行socketServer，再运行socketClient，点击发送相应的消息，在socketServer控制台中就会输出相应的接收到的数据</p>
+<p>#总结<br>GitHub的相关地址为：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/socketClient.git">socketClient</a><br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/socketServer.git">socketServer</a></p>
+<p>最终的效果图为：<br>先在mac上运行socketServer项目，开启服务器<br>控制台输出结果：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6d981da0da13c413.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="socketServer最初运行结果"></p>
+<p>之后在iphone上运行socketClient项目<br>tcp测试时的效果图：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-fb08132f0db7e8a5.gif?imageMogr2/auto-orient/strip" alt="tcp传输.gif"><br>点击发送后<br>socketSercer项目的控制台输出为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-10e610b81a0f6296.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="服务器接受相应的结果"></p>
+<p>udp的效果图和tcp一样，不再复述</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/11/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/" rel="prev" title="自定义Flowlayout探究">
+                自定义Flowlayout探究 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/luoyexixi.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落叶兮兮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

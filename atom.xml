@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-01-08T11:21:16.635Z</updated>
+  <updated>2020-12-16T07:46:22.495Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS14画中画探究</title>
+    <link href="http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/"/>
+    <id>http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/</id>
+    <published>2020-12-14T02:40:15.000Z</published>
+    <updated>2020-12-16T07:46:22.495Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近开始研究iOS14画中画功能的实现，最终分别通过使用AVPlayerViewController构建播放器和AVPlayerLayer构建播放器，分别实现相应的画中画的功能&lt;br&gt;实现的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>生成podfile文件</title>
@@ -32,27 +53,6 @@
 &lt;p&gt;在cd进入项目的文件夹后，可以使用如下两种方法&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;1.touch</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS14画中画探究</title>
-    <link href="http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/"/>
-    <id>http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/</id>
-    <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2020-12-16T07:46:22.495Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近开始研究iOS14画中画功能的实现，最终分别通过使用AVPlayerViewController构建播放器和AVPlayerLayer构建播放器，分别实现相应的画中画的功能&lt;br&gt;实现的效果图为：&lt;br&gt;&lt;img</summary>
         
       
     

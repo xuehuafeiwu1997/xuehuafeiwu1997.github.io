@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="落叶兮兮" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要介绍怎样实现类似系统的测滑返回效果最终的效果图为： Demo地址为：Demo地址 对应的实现文件为：EightViewController、CustomPopGestureViewController、PopAnimation 关于转场动画，下面这张图将的很清楚 为了实现类似系统的测滑返回效果，实际上就是pop的自定义返回动画，再加上UIPanGestureRecognizer手势的交">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS动画效果八-实现类似系统的侧滑返回效果">
+<meta property="og:url" content="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/index.html">
+<meta property="og:site_name" content="落叶兮兮">
+<meta property="og:description" content="这篇文章主要介绍怎样实现类似系统的测滑返回效果最终的效果图为： Demo地址为：Demo地址 对应的实现文件为：EightViewController、CustomPopGestureViewController、PopAnimation 关于转场动画，下面这张图将的很清楚 为了实现类似系统的测滑返回效果，实际上就是pop的自定义返回动画，再加上UIPanGestureRecognizer手势的交">
+<meta property="og:locale">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-5b43b089ae511af2.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-1a3ec41f2be41215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-da0836cac3fe193d.gif?imageMogr2/auto-orient/strip">
+<meta property="article:published_time" content="2021-02-19T01:51:48.000Z">
+<meta property="article:modified_time" content="2021-02-19T01:58:55.679Z">
+<meta property="article:author" content="落叶兮兮">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-5b43b089ae511af2.gif?imageMogr2/auto-orient/strip">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/02/19/动画的探究/iOS动画效果八-实现类似系统的测滑返回效果/"/>
+
+
+
+
+
+  <title>iOS动画效果八-实现类似系统的侧滑返回效果 | 落叶兮兮</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ae637f1ecc4bf55d349023fb041e8ec2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶兮兮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">iOS动画效果八-实现类似系统的侧滑返回效果</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要介绍怎样实现类似系统的测滑返回效果<br>最终的效果图为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-5b43b089ae511af2.gif?imageMogr2/auto-orient/strip" alt="自定义测滑返回手势.gif"></p>
+<p>Demo地址为：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
+<p>对应的实现文件为：<br>EightViewController、CustomPopGestureViewController、PopAnimation</p>
+<p>关于转场动画，下面这张图将的很清楚<br><img src="https://upload-images.jianshu.io/upload_images/18811075-1a3ec41f2be41215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="转场动画的相关类和协议的方法"></p>
+<p>为了实现类似系统的测滑返回效果，实际上就是pop的自定义返回动画，再加上UIPanGestureRecognizer手势的交互实现，也就是交互性转场动画（因为根据手指滑动的距离，大于一半会pop到上一个浏览器，小于一半会恢复原状）</p>
+<p>由上面的图可以看到，想要实现交互性转场动画，需要实现UIViewControllerInteractiveTransitioning,<br>但是系统有给我们提供一个可交互的百分比动画实现类，即UIPerCententDrivenInteractiveTransition,<br>在接下来的实现中，我们可以直接使用系统提供的实现类，也可以自定义一个遵守UIViewControllerInteractiveTransitioning协议的类（我们是使用了系统提供的）</p>
+<p>首先，我们先把pop动画的自定义给完成<br>在eightViewController中，搭建基本的界面，可以push到CustomPopGestureViewController中<br>在eightViewController.h中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *button;</span><br></pre></td></tr></table></figure>
+<p>在eightViewController.m中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;测滑返回手势测试&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.button.center = <span class="keyword">self</span>.view.center;</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.button];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)button &#123;</span><br><span class="line">    <span class="keyword">if</span> (_button) &#123;</span><br><span class="line">        <span class="keyword">return</span> _button;</span><br><span class="line">    &#125;</span><br><span class="line">    _button = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">50</span>)];</span><br><span class="line">    [_button setTitle:<span class="string">@&quot;跳转下一个播放器&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_button setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_button addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonClicked) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _button;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)buttonClicked &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;点击了跳转按钮&quot;</span>);</span><br><span class="line">    CustomPopGestureViewController *vc = [[CustomPopGestureViewController alloc] init];</span><br><span class="line">    [<span class="keyword">self</span>.navigationController pushViewController:vc animated:<span class="literal">YES</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击按钮，可以push到CustomGestureViewcontroller中</p>
+<p>为了实现自定义的测滑返回功能，我们需要禁用系统的测滑返回功能<br>在CustomViewController中，我们需要添加以下代码禁用</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//禁用系统自带的侧滑返回手势</span></span><br><span class="line">   <span class="keyword">self</span>.navigationController.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<p>接下来，先实现pop的自定义动画<br>在CustomViewController中，需要遵守UINavigationDelegate协议</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">self.navigationController.delegate</span> = self<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>实现相应的协议方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerAnimatedTransitioning</span>&gt;)navigationController:(<span class="built_in">UINavigationController</span> *)navigationController animationControllerForOperation:(<span class="built_in">UINavigationControllerOperation</span>)operation fromViewController:(<span class="built_in">UIViewController</span> *)fromVC toViewController:(<span class="built_in">UIViewController</span> *)toVC &#123;</span><br><span class="line">    <span class="keyword">if</span> (operation == <span class="built_in">UINavigationControllerOperationPop</span>) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了这个方法PopAnimation&quot;</span>);</span><br><span class="line">      <span class="comment">//popAnimation是我们后面定义的类，用来实现具体的动画效果</span></span><br><span class="line">        <span class="keyword">return</span> [[PopAnimation alloc] init];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们自定义一个类PopAnimation，遵守协议UIViewControllerAnimatedTransitioning<br>在类中实现相应的协议方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置动画执行的时常</span></span><br><span class="line">- (<span class="built_in">NSTimeInterval</span>)transitionDuration:(<span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerContextTransitioning</span>&gt;)transitionContext &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1.0</span>f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用来处理具体的动画</span></span><br><span class="line">- (<span class="keyword">void</span>)animateTransition:(<span class="keyword">nonnull</span> <span class="keyword">id</span>&lt;<span class="built_in">UIViewControllerContextTransitioning</span>&gt;)transitionContext &#123;</span><br><span class="line">    <span class="built_in">UIViewController</span> *fromVC = [transitionContext viewControllerForKey:<span class="built_in">UITransitionContextFromViewControllerKey</span>];</span><br><span class="line">    <span class="built_in">UIViewController</span> *toVC = [transitionContext viewControllerForKey:<span class="built_in">UITransitionContextToViewControllerKey</span>];</span><br><span class="line">    <span class="comment">//需要将转场后的界面给加上去才行</span></span><br><span class="line"><span class="comment">//    [[transitionContext containerView] addSubview:toVC.view];</span></span><br><span class="line">    [[transitionContext containerView] insertSubview:toVC.view belowSubview:fromVC.view];</span><br><span class="line">    <span class="built_in">NSTimeInterval</span> duration = [<span class="keyword">self</span> transitionDuration:transitionContext];</span><br><span class="line">    <span class="built_in">CGFloat</span> width = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.width;</span><br><span class="line">    <span class="built_in">CGFloat</span> height = [<span class="built_in">UIScreen</span> mainScreen].bounds.size.height;</span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:[<span class="keyword">self</span> transitionDuration:transitionContext] animations:^&#123;</span><br><span class="line">        fromVC.view.frame = <span class="built_in">CGRectMake</span>(width, <span class="number">0</span>, width, height);</span><br><span class="line">    &#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面实现动画的思路：</p>
+<blockquote>
+<p>我们可以从最终效果图上可以看成：<br>pop动画的过程就是将上面的view向右挪动，直到移出界面<br>所以代码中有这一句<br> [[transitionContext containerView] insertSubview:toVC.view belowSubview:fromVC.view];<br>将toView的view放在fromVC.view的下面，使用UIview animation来完成移动动画</p>
+</blockquote>
+<blockquote>
+<p>注意：这里只能使用UIView animation来完成动画，代码中注释的是我最初使用CABasicAnimation来完成移动动画，pop自定义动画可行，但是对于后面使用系统类UIPerCententDrivenInteractiveTransition完成交互不可行，<br>如果想要使用CaBasicAnimation，必须自定义可交互的百分比动画类</p>
+</blockquote>
+<p>这样我们就完成了pop的自定义动画返回，但是我们需要加入交互，通过判断手指滑动的距离来判断动画的进行程度</p>
+<p>接下来，我们需要在CustomPopGestureViewController中，定义相应的手势属性和相应的交互类</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIPanGestureRecognizer</span> *pan;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIPercentDrivenInteractiveTransition</span> *interactiveTransition;</span><br></pre></td></tr></table></figure>
+
+<p>接下来完成相应的手势类的添加</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;类似系统侧滑返回手势实现&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> yellowColor];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//禁用系统自带的侧滑返回手势</span></span><br><span class="line">    <span class="keyword">self</span>.navigationController.interactivePopGestureRecognizer.enabled = <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:<span class="keyword">self</span>.pan];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.navigationController.delegate = <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIPanGestureRecognizer</span> *)pan &#123;</span><br><span class="line">    <span class="keyword">if</span> (_pan) &#123;</span><br><span class="line">        <span class="keyword">return</span> _pan;</span><br><span class="line">    &#125;</span><br><span class="line">    _pan = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(pan:)];</span><br><span class="line">    <span class="keyword">return</span> _pan;</span><br><span class="line">&#125;</span><br><span class="line">`````</span><br><span class="line">在手势类的出发方法中，我们需要根据<span class="built_in">UIPanGestureRecognizer</span>的状态来初始化或者更新或者取消或者结束交互类</span><br><span class="line">&gt;<span class="built_in">UIGestureRecognizerStateBegan</span>：手势类刚开始出发时，初始化相应的interactiveTransition</span><br><span class="line"><span class="built_in">UIGestureRecognizerStateChanged</span>：手势继续滑动的时候，交互类进行相应的更新</span><br><span class="line"><span class="built_in">UIGestureRecognizerStateEnded</span>：手势结束时，交互类结束</span><br><span class="line"><span class="built_in">UIGestureRecognizerStateCancelled</span>：手势取消时，交互类取消</span><br><span class="line">最后一个手势周期完成后都要将交互类interactiveTransition置为<span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">代码为：</span><br></pre></td></tr></table></figure>
+<ul>
+<li>(void)pan:(UIPanGestureRecognizer *)pan {<br>  if (self.navigationController.childViewControllers.count == 1) {<pre><code>  return;</code></pre>
+  }<br>  CGPoint point = [pan translationInView:self.view];<br>  CGFloat percent = point.x / self.view.bounds.size.width;<br>  NSLog(@”percent的进度值为:%f”,percent);<br>  percent = MIN(MAX(0, percent), 1);<br>  if (pan.state == UIGestureRecognizerStateBegan) {<pre><code>  _interactiveTransition = [[UIPercentDrivenInteractiveTransition alloc] init];
+  [self.navigationController popViewControllerAnimated:YES];</code></pre>
+  } else if (pan.state == UIGestureRecognizerStateChanged) {<pre><code>  [_interactiveTransition updateInteractiveTransition:percent];</code></pre>
+  } else if (pan.state == UIGestureRecognizerStateEnded || pan.state == UIGestureRecognizerStateCancelled) {<pre><code>  //手势结束后，若进度大于0.5就完成pop动画，否则取消
+  if (percent &gt; 0.5) &#123;
+      [_interactiveTransition finishInteractiveTransition];
+  &#125; else &#123;
+      [_interactiveTransition cancelInteractiveTransition];
+  &#125;
+  _interactiveTransition = nil;</code></pre>
+  }<br>}<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">另外，不要忘记，在<span class="built_in">UINavigationDelegate</span>协议方法中实现可交互类的协议方法</span><br></pre></td></tr></table></figure></li>
+<li>(id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {<br>  if ([animationController isKindOfClass:[PopAnimation class]]) {<pre><code>  NSLog(@&quot;执行了这个方法UIPercentDrivenInteractiveTransition&quot;);
+  return _interactiveTransition;</code></pre>
+  }<br>  return nil;<br>}<pre><code>最终的效果图为：
+![自定义测滑返回手势.gif](https://upload-images.jianshu.io/upload_images/18811075-ed97426029508068.gif?imageMogr2/auto-orient/strip)
+</code></pre>
+</UIViewControllerAnimatedTransitioning></UIViewControllerInteractiveTransitioning></li>
+</ul>
+<p>#总结<br>最终效果图为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-da0836cac3fe193d.gif?imageMogr2/auto-orient/strip" alt="自定义测滑返回手势.gif"></p>
+<p>Demo地址为：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59f9f9ff73a5">iOS开发中动画效果的探究(一)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d55a5960f826">iOS动画效果的探究二：UIView Animation实现动画
+</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/52d8a97e1942">iOS动画效果三：CABAsicAnimation实现平移、旋转和放大</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/88fe1d9c8f4e">ios动画效果四：使用Pop框架实现弹簧效果</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b7a01405c521">iOS动画效果五：CABasicAnimation实现绕定点旋转的效果</a>]</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0e9047bdce24">iOS动画效果六：实现自定义的push转场动画</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e94415afcc63">iOS动画效果七：实现自定义present转场动画效果
+</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a0a4c8086d25">iOS动画效果八:实现类似系统的测滑返回效果
+</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/" rel="next" title="ios动画效果五：CABasicAnimation实现定点旋转的效果">
+                <i class="fa fa-chevron-left"></i> ios动画效果五：CABasicAnimation实现定点旋转的效果
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" rel="prev" title="iOS动画效果七：实现自定义present转场动画效果">
+                iOS动画效果七：实现自定义present转场动画效果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/luoyexixi.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落叶兮兮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '9DPBhvJGT7M2Iv44IjXtGI36-gzGzoHsz',
+        appKey: 'oTlAxx65Hk7vT8sUX0Ehtwqa',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

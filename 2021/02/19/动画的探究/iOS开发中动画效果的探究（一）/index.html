@@ -81,17 +81,26 @@
 
 
 
-<meta name="description" content="会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你">
-<meta property="og:type" content="website">
-<meta property="og:title" content="分类">
-<meta property="og:url" content="http://example.com/categories/index.html">
+<meta name="description" content="一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下1.使用UIView Animation实现动画效果2.使用CABasicAnimation实现平移、放大和旋转的效果3.使用pop框架实现弹簧动画4.使用CABasicAnimation实现绕定点（以右下角为例）旋转的效果5.实现push转场的自定义动画效果6.实现present转场的自定义动画效果7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS开发中动画效果的探究（一）">
+<meta property="og:url" content="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="落叶兮兮">
-<meta property="og:description" content="会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你">
+<meta property="og:description" content="一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下1.使用UIView Animation实现动画效果2.使用CABasicAnimation实现平移、放大和旋转的效果3.使用pop框架实现弹簧动画4.使用CABasicAnimation实现绕定点（以右下角为例）旋转的效果5.实现push转场的自定义动画效果6.实现present转场的自定义动画效果7">
 <meta property="og:locale">
-<meta property="article:published_time" content="2020-12-14T06:45:43.000Z">
-<meta property="article:modified_time" content="2020-12-14T07:21:40.576Z">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-35510823fc346c1e.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-60473f569335422b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-e384bc91d8acac2c.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-614dc57998de1c95.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-513af35eb844f2fc.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-88e99d1ae4066a64.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-19a1fa87eeec8430.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-6fc9032cc710fd27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2021-02-19T01:51:48.000Z">
+<meta property="article:modified_time" content="2021-02-19T02:03:01.077Z">
 <meta property="article:author" content="落叶兮兮">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-35510823fc346c1e.gif?imageMogr2/auto-orient/strip">
 
 
 
@@ -121,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/categories/"/>
+  <link rel="canonical" href="http://example.com/2021/02/19/动画的探究/iOS开发中动画效果的探究（一）/"/>
 
 
 
 
 
-  <title>分类 | 落叶兮兮</title>
+  <title>iOS开发中动画效果的探究（一） | 落叶兮兮</title>
   
 
 
@@ -263,33 +272,172 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">分类</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">iOS开发中动画效果的探究（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p>一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下<br>1.使用UIView Animation实现动画效果<br>2.使用CABasicAnimation实现平移、放大和旋转的效果<br>3.使用pop框架实现弹簧动画<br>4.使用CABasicAnimation实现绕定点（以右下角为例）旋转的效果<br>5.实现push转场的自定义动画效果<br>6.实现present转场的自定义动画效果<br>7.由于锚点变化导致的旋转异常<br>8.实现pop的测滑返回效果</p>
+<p>相应的效果图为<br><img src="https://upload-images.jianshu.io/upload_images/18811075-35510823fc346c1e.gif?imageMogr2/auto-orient/strip" alt="UIView animation动画效果.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-60473f569335422b.gif?imageMogr2/auto-orient/strip" alt="CABAsicAnimation实现平移、放大和旋转.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-e384bc91d8acac2c.gif?imageMogr2/auto-orient/strip" alt="pop框架实现弹簧动画.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-614dc57998de1c95.gif?imageMogr2/auto-orient/strip" alt="CABasicAnimation绕定点旋转.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-513af35eb844f2fc.gif?imageMogr2/auto-orient/strip" alt="自定义push的转场动画.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-88e99d1ae4066a64.gif?imageMogr2/auto-orient/strip" alt="自定义present转场动画.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-19a1fa87eeec8430.gif?imageMogr2/auto-orient/strip" alt="自定义测滑返回手势.gif"></p>
+<p>项目的结构为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6fc9032cc710fd27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目结构"></p>
+<p>项目demo地址：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
+<p>后面会继续写文章介绍每一种动画的实现</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59f9f9ff73a5">iOS开发中动画效果的探究(一)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d55a5960f826">iOS动画效果的探究二：UIView Animation实现动画
+</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/52d8a97e1942">iOS动画效果三：CABAsicAnimation实现平移、旋转和放大</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/88fe1d9c8f4e">ios动画效果四：使用Pop框架实现弹簧效果</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b7a01405c521">iOS动画效果五：CABasicAnimation实现绕定点旋转的效果</a>]</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0e9047bdce24">iOS动画效果六：实现自定义的push转场动画</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e94415afcc63">iOS动画效果七：实现自定义present转场动画效果
+</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a0a4c8086d25">iOS动画效果八:实现类似系统的测滑返回效果
+</a></p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/" rel="next" title="iOS动画效果二：UIViewAnimation实现动画">
+                <i class="fa fa-chevron-left"></i> iOS动画效果二：UIViewAnimation实现动画
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/" rel="prev" title="ios动画效果四：使用pop框架实现弹簧效果">
+                ios动画效果四：使用pop框架实现弹簧效果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 

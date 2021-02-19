@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2020-12-16T07:46:22.495Z</updated>
+  <updated>2021-02-19T02:01:29.718Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,176 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ios动画效果三：CABasicAnimation实现平移、旋转和放大</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T02:01:29.718Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;使用CABAsicAnimation来实现动画的放缩和旋转是比较常用的，这篇主要介绍CABasicAnimation实现简单的动画效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios动画效果四：使用pop框架实现弹簧效果</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T02:02:02.005Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;pop框架是Google推出的用于处理iOS动画的一个特别好用的框架&lt;br&gt;如果对这个框架没有了解的，可与去看一下官方提供的资料&lt;/p&gt;
+&lt;p&gt;这次我主要使用pop框架实现一个简单的弹簧效果&lt;br&gt;对应的demo为&lt;br&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS开发中动画效果的探究（一）</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T02:03:01.077Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下&lt;br&gt;1.使用UIView</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS动画效果二：UIViewAnimation实现动画</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T01:59:34.452Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这是我们实现动画效果最简单的方法了，可以实现简单的平移、缩放和旋转功能，平常我们基本上对于简单的平移使用该方法来完成&lt;/p&gt;
+&lt;p&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios动画效果六:实现自定义的push动画</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T02:00:11.102Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要讲一下push的自定义转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS动画效果七：实现自定义present转场动画效果</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T02:00:50.233Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要介绍如何实现自定义的present转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS动画效果八-实现类似系统的侧滑返回效果</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T01:58:55.679Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要介绍怎样实现类似系统的测滑返回效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios动画效果五：CABasicAnimation实现定点旋转的效果</title>
+    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T01:51:48.000Z</published>
+    <updated>2021-02-19T02:02:38.118Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面提到过CALayer的anchorPoint和position对CABasicAnimation的动画过程会有影响，这篇文章主要讲的是：通过设置anchorPoint和position来实现CABAsicAnimation绕右下角旋转的效果&lt;br&gt;最终的效果图为：&lt;br</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>iOS14画中画探究</title>
@@ -38,21 +208,20 @@
   </entry>
   
   <entry>
-    <title>生成podfile文件</title>
-    <link href="http://example.com/2020/12/14/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E7%94%9F%E6%88%90podfile%E6%96%87%E4%BB%B6/"/>
-    <id>http://example.com/2020/12/14/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E7%94%9F%E6%88%90podfile%E6%96%87%E4%BB%B6/</id>
+    <title>socket通信原理</title>
+    <link href="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/"/>
+    <id>http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/</id>
     <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2021-01-08T11:21:16.635Z</updated>
+    <updated>2021-01-08T11:12:35.304Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;在iOS开发中，使用终端命令生成podfile文件&lt;/p&gt;
-&lt;p&gt;在cd进入项目的文件夹后，可以使用如下两种方法&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.touch</summary>
+    <summary type="html">&lt;p&gt;最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现&lt;/p&gt;
+&lt;p&gt;这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket&lt;/p&gt;
+&lt;p&gt;因为需要有服务器充</summary>
         
       
     
@@ -84,20 +253,21 @@
   </entry>
   
   <entry>
-    <title>socket通信原理</title>
-    <link href="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/"/>
-    <id>http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/</id>
+    <title>生成podfile文件</title>
+    <link href="http://example.com/2020/12/14/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E7%94%9F%E6%88%90podfile%E6%96%87%E4%BB%B6/"/>
+    <id>http://example.com/2020/12/14/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E7%94%9F%E6%88%90podfile%E6%96%87%E4%BB%B6/</id>
     <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2021-01-08T11:12:35.304Z</updated>
+    <updated>2021-01-08T11:21:16.635Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现&lt;/p&gt;
-&lt;p&gt;这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket&lt;/p&gt;
-&lt;p&gt;因为需要有服务器充</summary>
+    <summary type="html">&lt;p&gt;在iOS开发中，使用终端命令生成podfile文件&lt;/p&gt;
+&lt;p&gt;在cd进入项目的文件夹后，可以使用如下两种方法&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.touch</summary>
         
       
     

@@ -84,7 +84,7 @@
 <meta name="description" content="这篇文章主要介绍如何实现自定义的present转场动画最终的效果图为： Demo地址为：Demo地址 相关的文件名为：SixthViewController,CustomModalViewController,PresentingAnimationController,DismissingAnimationController 关于转场动画，下面这张图将的很清楚 从上图可以看出，为了实现自定义的p">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS动画效果七：实现自定义present转场动画效果">
-<meta property="og:url" content="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/index.html">
+<meta property="og:url" content="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/index.html">
 <meta property="og:site_name" content="落叶兮兮">
 <meta property="og:description" content="这篇文章主要介绍如何实现自定义的present转场动画最终的效果图为： Demo地址为：Demo地址 相关的文件名为：SixthViewController,CustomModalViewController,PresentingAnimationController,DismissingAnimationController 关于转场动画，下面这张图将的很清楚 从上图可以看出，为了实现自定义的p">
 <meta property="og:locale">
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/02/19/动画的探究/iOS动画效果七：实现自定义present转场动画效果/"/>
+  <link rel="canonical" href="http://example.com/2021/02/19/iOS动画效果七：实现自定义present转场动画效果/"/>
 
 
 
@@ -279,7 +279,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -327,8 +327,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -425,7 +425,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/" rel="next" title="iOS动画效果八-实现类似系统的侧滑返回效果">
+              <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/" rel="next" title="iOS动画效果八-实现类似系统的侧滑返回效果">
                 <i class="fa fa-chevron-left"></i> iOS动画效果八-实现类似系统的侧滑返回效果
               </a>
             
@@ -435,7 +435,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" rel="prev" title="ios动画效果六:实现自定义的push动画">
+              <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" rel="prev" title="ios动画效果六:实现自定义的push动画">
                 ios动画效果六:实现自定义的push动画 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -518,6 +518,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             

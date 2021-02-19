@@ -81,19 +81,26 @@
 
 
 
-<meta name="description" content="这是我们实现动画效果最简单的方法了，可以实现简单的平移、缩放和旋转功能，平常我们基本上对于简单的平移使用该方法来完成 Demo地址 对应实现UIView Animation的文件是FirstViewController 首先，我们定义一个UIView属性 1@property (nonatomic, strong) UIView *myView; 并将其添加到界面上 123456789101112">
+<meta name="description" content="一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下1.使用UIView Animation实现动画效果2.使用CABasicAnimation实现平移、放大和旋转的效果3.使用pop框架实现弹簧动画4.使用CABasicAnimation实现绕定点（以右下角为例）旋转的效果5.实现push转场的自定义动画效果6.实现present转场的自定义动画效果7">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS动画效果二：UIViewAnimation实现动画">
-<meta property="og:url" content="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/index.html">
+<meta property="og:title" content="iOS开发中动画效果的探究（一）">
+<meta property="og:url" content="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
 <meta property="og:site_name" content="落叶兮兮">
-<meta property="og:description" content="这是我们实现动画效果最简单的方法了，可以实现简单的平移、缩放和旋转功能，平常我们基本上对于简单的平移使用该方法来完成 Demo地址 对应实现UIView Animation的文件是FirstViewController 首先，我们定义一个UIView属性 1@property (nonatomic, strong) UIView *myView; 并将其添加到界面上 123456789101112">
+<meta property="og:description" content="一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下1.使用UIView Animation实现动画效果2.使用CABasicAnimation实现平移、放大和旋转的效果3.使用pop框架实现弹簧动画4.使用CABasicAnimation实现绕定点（以右下角为例）旋转的效果5.实现push转场的自定义动画效果6.实现present转场的自定义动画效果7">
 <meta property="og:locale">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-a2163a6688d91511.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-35510823fc346c1e.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-60473f569335422b.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-e384bc91d8acac2c.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-614dc57998de1c95.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-513af35eb844f2fc.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-88e99d1ae4066a64.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-19a1fa87eeec8430.gif?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-6fc9032cc710fd27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="article:published_time" content="2021-02-19T01:51:48.000Z">
-<meta property="article:modified_time" content="2021-02-19T01:59:34.452Z">
+<meta property="article:modified_time" content="2021-02-19T02:21:53.236Z">
 <meta property="article:author" content="落叶兮兮">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-a2163a6688d91511.gif?imageMogr2/auto-orient/strip">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-35510823fc346c1e.gif?imageMogr2/auto-orient/strip">
 
 
 
@@ -123,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/02/19/动画的探究/iOS动画效果的探究二：UIView-Animation实现动画/"/>
+  <link rel="canonical" href="http://example.com/2021/02/19/iOS开发中动画效果的探究（一）/"/>
 
 
 
 
 
-  <title>iOS动画效果二：UIViewAnimation实现动画 | 落叶兮兮</title>
+  <title>iOS开发中动画效果的探究（一） | 落叶兮兮</title>
   
 
 
@@ -277,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -294,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">iOS动画效果二：UIViewAnimation实现动画</h1>
+          <h1 class="post-title" itemprop="name headline">iOS开发中动画效果的探究（一）</h1>
         
 
         <div class="post-meta">
@@ -317,6 +324,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%8A%A8%E7%94%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">动画</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -325,8 +354,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -359,18 +388,11 @@
       
 
       
-        <p>这是我们实现动画效果最简单的方法了，可以实现简单的平移、缩放和旋转功能，平常我们基本上对于简单的平移使用该方法来完成</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
-<p>对应实现UIView Animation的文件是FirstViewController</p>
-<p>首先，我们定义一个UIView属性</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIView</span> *myView;</span><br></pre></td></tr></table></figure>
-<p>并将其添加到界面上</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;UIView Animation实现动画效果&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.myView];</span><br><span class="line">    <span class="keyword">self</span>.myView.center = <span class="keyword">self</span>.view.center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIView</span> *)myView &#123;</span><br><span class="line">    <span class="keyword">if</span> (_myView) &#123;</span><br><span class="line">        <span class="keyword">return</span> _myView;</span><br><span class="line">    &#125;</span><br><span class="line">    _myView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">200</span>, <span class="number">100</span>)];</span><br><span class="line">    _myView.backgroundColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">    <span class="keyword">return</span> _myView;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>点击屏幕时，执行相应的动画代码</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    [<span class="built_in">UIView</span> animateWithDuration:<span class="number">1</span> animations:^&#123;</span><br><span class="line">        <span class="comment">//最终的myView的大小和颜色</span></span><br><span class="line">        <span class="keyword">self</span>.myView.frame = <span class="built_in">CGRectMake</span>(<span class="number">200</span>, <span class="number">300</span>, <span class="number">100</span>, <span class="number">100</span>);</span><br><span class="line">        <span class="keyword">self</span>.myView.backgroundColor = [<span class="built_in">UIColor</span> blueColor];</span><br><span class="line">    &#125; completion:^(<span class="built_in">BOOL</span> finished) &#123;</span><br><span class="line">       <span class="comment">//动画完成时可以执行一些我们想要的操作</span></span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;动画效果完成&quot;</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这种方式比较简单，就没有过多研究，最终的效果图为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-a2163a6688d91511.gif?imageMogr2/auto-orient/strip" alt="UIView animation动画效果.gif"></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
+        <p>一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下<br>1.使用UIView Animation实现动画效果<br>2.使用CABasicAnimation实现平移、放大和旋转的效果<br>3.使用pop框架实现弹簧动画<br>4.使用CABasicAnimation实现绕定点（以右下角为例）旋转的效果<br>5.实现push转场的自定义动画效果<br>6.实现present转场的自定义动画效果<br>7.由于锚点变化导致的旋转异常<br>8.实现pop的测滑返回效果</p>
+<p>相应的效果图为<br><img src="https://upload-images.jianshu.io/upload_images/18811075-35510823fc346c1e.gif?imageMogr2/auto-orient/strip" alt="UIView animation动画效果.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-60473f569335422b.gif?imageMogr2/auto-orient/strip" alt="CABAsicAnimation实现平移、放大和旋转.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-e384bc91d8acac2c.gif?imageMogr2/auto-orient/strip" alt="pop框架实现弹簧动画.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-614dc57998de1c95.gif?imageMogr2/auto-orient/strip" alt="CABasicAnimation绕定点旋转.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-513af35eb844f2fc.gif?imageMogr2/auto-orient/strip" alt="自定义push的转场动画.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-88e99d1ae4066a64.gif?imageMogr2/auto-orient/strip" alt="自定义present转场动画.gif"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-19a1fa87eeec8430.gif?imageMogr2/auto-orient/strip" alt="自定义测滑返回手势.gif"></p>
+<p>项目的结构为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6fc9032cc710fd27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="项目结构"></p>
+<p>项目demo地址：<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
+<p>后面会继续写文章介绍每一种动画的实现</p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59f9f9ff73a5">iOS开发中动画效果的探究(一)</a></p>
 <p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d55a5960f826">iOS动画效果的探究二：UIView Animation实现动画
 </a></p>
@@ -406,8 +428,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" rel="next" title="ios动画效果六:实现自定义的push动画">
-                <i class="fa fa-chevron-left"></i> ios动画效果六:实现自定义的push动画
+              <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/" rel="next" title="iOS动画效果二：UIViewAnimation实现动画">
+                <i class="fa fa-chevron-left"></i> iOS动画效果二：UIViewAnimation实现动画
               </a>
             
           </div>
@@ -416,8 +438,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/" rel="prev" title="iOS开发中动画效果的探究（一）">
-                iOS开发中动画效果的探究（一） <i class="fa fa-chevron-right"></i>
+              <a href="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/" rel="prev" title="ios动画效果四：使用pop框架实现弹簧效果">
+                ios动画效果四：使用pop框架实现弹簧效果 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -499,6 +521,15 @@
               </div>
             
 
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
             
 
             

@@ -18,8 +18,8 @@
   
   <entry>
     <title>ios动画效果三：CABasicAnimation实现平移、旋转和放大</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/</id>
     <published>2021-02-19T01:51:48.000Z</published>
     <updated>2021-02-19T02:01:29.718Z</updated>
     
@@ -39,8 +39,8 @@
   
   <entry>
     <title>ios动画效果四：使用pop框架实现弹簧效果</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/</id>
+    <link href="http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/</id>
     <published>2021-02-19T01:51:48.000Z</published>
     <updated>2021-02-19T02:02:02.005Z</updated>
     
@@ -61,10 +61,10 @@
   
   <entry>
     <title>iOS开发中动画效果的探究（一）</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
     <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:03:01.077Z</updated>
+    <updated>2021-02-19T02:21:53.236Z</updated>
     
     
       
@@ -77,13 +77,15 @@
     
     
     
+    <category term="动画" scheme="http://example.com/categories/%E5%8A%A8%E7%94%BB/"/>
+    
     
   </entry>
   
   <entry>
     <title>iOS动画效果二：UIViewAnimation实现动画</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/</id>
     <published>2021-02-19T01:51:48.000Z</published>
     <updated>2021-02-19T01:59:34.452Z</updated>
     
@@ -104,8 +106,8 @@
   
   <entry>
     <title>ios动画效果六:实现自定义的push动画</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/</id>
     <published>2021-02-19T01:51:48.000Z</published>
     <updated>2021-02-19T02:00:11.102Z</updated>
     
@@ -125,8 +127,8 @@
   
   <entry>
     <title>iOS动画效果七：实现自定义present转场动画效果</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</id>
     <published>2021-02-19T01:51:48.000Z</published>
     <updated>2021-02-19T02:00:50.233Z</updated>
     
@@ -146,10 +148,10 @@
   
   <entry>
     <title>iOS动画效果八-实现类似系统的侧滑返回效果</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/</id>
     <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T01:58:55.679Z</updated>
+    <updated>2021-02-19T02:22:14.787Z</updated>
     
     
       
@@ -162,13 +164,15 @@
     
     
     
+    <category term="动画" scheme="http://example.com/categories/%E5%8A%A8%E7%94%BB/"/>
+    
     
   </entry>
   
   <entry>
     <title>ios动画效果五：CABasicAnimation实现定点旋转的效果</title>
-    <link href="http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/%E5%8A%A8%E7%94%BB%E7%9A%84%E6%8E%A2%E7%A9%B6/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/</id>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/</id>
     <published>2021-02-19T01:51:48.000Z</published>
     <updated>2021-02-19T02:02:38.118Z</updated>
     

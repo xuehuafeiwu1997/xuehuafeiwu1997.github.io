@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-19T02:01:29.718Z</updated>
+  <updated>2021-02-19T02:54:59.751Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -17,22 +17,266 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>ios动画效果三：CABasicAnimation实现平移、旋转和放大</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:01:29.718Z</updated>
+    <title>iphone8升级iOS14.3,xcode运行时卡在初始界面</title>
+    <link href="http://example.com/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/"/>
+    <id>http://example.com/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/</id>
+    <published>2021-02-19T03:10:16.000Z</published>
+    <updated>2021-02-19T02:54:59.751Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;使用CABAsicAnimation来实现动画的放缩和旋转是比较常用的，这篇主要介绍CABasicAnimation实现简单的动画效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+    <summary type="html">&lt;p&gt;前面有提到，为了解决iphone8在iOS14.1上的前置摄像头的问题，无奈只能升级系统，升级到iOS14.3&lt;/p&gt;
+&lt;p&gt;通过从网上下载真机包放到xcode中，可以使用xcode重新运行，但是又遇到一个恶心的问题&lt;/p&gt;
+&lt;p&gt;就是运行的时候卡在初始界面，每次大概两分钟</summary>
         
       
     
     
+    
+    <category term="xcode问题" scheme="http://example.com/categories/xcode%E9%97%AE%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iphone8升级iOS14.3,低版本不支持高版本iOS的解决办法</title>
+    <link href="http://example.com/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <id>http://example.com/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
+    <published>2021-02-19T03:09:16.000Z</published>
+    <updated>2021-02-19T02:54:57.902Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天遇到一个极其恶心的问题，一直想骂apple&lt;/p&gt;
+&lt;p&gt;手机使用的iphone8，结果前段时间发现自拍的话嘴角特别歪&lt;br&gt;我还以为是我中午趴在桌子上午睡引起的&lt;/p&gt;
+&lt;p&gt;结果，前两天使用华为自拍，发现没什么问题，使用ipad自拍也没什么问题&lt;/p&gt;
+&lt;p&gt;结果就</summary>
+        
+      
+    
+    
+    
+    <category term="xcode问题" scheme="http://example.com/categories/xcode%E9%97%AE%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>pod install出错的解决办法</title>
+    <link href="http://example.com/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/"/>
+    <id>http://example.com/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/</id>
+    <published>2021-02-19T03:06:16.000Z</published>
+    <updated>2021-02-19T02:50:56.006Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近合并项目代码，按照正常流程pod install，pod install成功&lt;br&gt;之后运行项目代码，结果出现80个bug&lt;br&gt;错误类型大致为&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Undefined symbol: _avio_write&lt;br&gt;Module</summary>
+        
+      
+    
+    
+    
+    <category term="cocoapods" scheme="http://example.com/categories/cocoapods/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios开发中数据持久化总结（四）:使用FMDataBase存储数据</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/</id>
+    <published>2021-02-19T03:03:16.000Z</published>
+    <updated>2021-02-19T02:47:37.530Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇主要是使用FMDataBase创建简单的数据库表，用来简单的存储数据&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/xuehuafeiwu1997/-saveData.git&quot;&gt;Demo地址&lt;/a&gt;&lt;br&gt;对应的实现文件如下：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="iOS数据持久化总结" scheme="http://example.com/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
+    <published>2021-02-19T03:02:16.000Z</published>
+    <updated>2021-02-19T02:42:29.364Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要写NSKeyArchiver归档和NSKeyUnarchiver解档的实现&lt;/p&gt;
+&lt;p&gt;最终存储后的效果图为:&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="iOS数据持久化总结" scheme="http://example.com/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/</id>
+    <published>2021-02-19T03:01:16.000Z</published>
+    <updated>2021-02-19T02:41:54.992Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要讲述NSUserDefaults的简单使用&lt;br&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="iOS数据持久化总结" scheme="http://example.com/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios开发中数据持久化总结（一）</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2021-02-19T03:00:16.000Z</published>
+    <updated>2021-02-19T02:40:55.923Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;ios开发中，常用的几种数据持久化的方式，主要有以下几种&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;1.使用NSUserDefaults存储数据&lt;br&gt;2.使用Archive对象归类&lt;br&gt;3.使用SQlite数据库存储数据(尝试用FMDataBase第三方库)&lt;/p&gt;
+&lt;/</summary>
+        
+      
+    
+    
+    
+    <category term="iOS数据持久化总结" scheme="http://example.com/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS动画效果八-实现类似系统的侧滑返回效果</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T02:37:16.000Z</published>
+    <updated>2021-02-19T02:39:13.789Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要介绍怎样实现类似系统的测滑返回效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS动画效果七：实现自定义present转场动画效果</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T02:36:16.000Z</published>
+    <updated>2021-02-19T02:39:06.830Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要介绍如何实现自定义的present转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios动画效果六:实现自定义的push动画</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/</id>
+    <published>2021-02-19T02:35:16.000Z</published>
+    <updated>2021-02-19T02:38:36.073Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要讲一下push的自定义转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>ios动画效果五：CABasicAnimation实现定点旋转的效果</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/</id>
+    <published>2021-02-19T02:34:16.000Z</published>
+    <updated>2021-02-19T02:38:54.510Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;前面提到过CALayer的anchorPoint和position对CABasicAnimation的动画过程会有影响，这篇文章主要讲的是：通过设置anchorPoint和position来实现CABAsicAnimation绕右下角旋转的效果&lt;br&gt;最终的效果图为：&lt;br</summary>
+        
+      
+    
+    
+    
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
     
     
   </entry>
@@ -41,8 +285,8 @@
     <title>ios动画效果四：使用pop框架实现弹簧效果</title>
     <link href="http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/"/>
     <id>http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:02:02.005Z</updated>
+    <published>2021-02-19T02:33:16.000Z</published>
+    <updated>2021-02-19T02:38:45.358Z</updated>
     
     
       
@@ -56,28 +300,30 @@
     
     
     
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
+    
     
   </entry>
   
   <entry>
-    <title>iOS开发中动画效果的探究（一）</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:21:53.236Z</updated>
+    <title>ios动画效果三：CABasicAnimation实现平移、旋转和放大</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/</id>
+    <published>2021-02-19T02:32:16.000Z</published>
+    <updated>2021-02-19T02:39:30.697Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下&lt;br&gt;1.使用UIView</summary>
+    <summary type="html">&lt;p&gt;使用CABAsicAnimation来实现动画的放缩和旋转是比较常用的，这篇主要介绍CABasicAnimation实现简单的动画效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
         
       
     
     
     
-    <category term="动画" scheme="http://example.com/categories/%E5%8A%A8%E7%94%BB/"/>
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
     
     
   </entry>
@@ -86,8 +332,8 @@
     <title>iOS动画效果二：UIViewAnimation实现动画</title>
     <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/"/>
     <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T01:59:34.452Z</updated>
+    <published>2021-02-19T02:31:16.000Z</published>
+    <updated>2021-02-19T02:39:24.211Z</updated>
     
     
       
@@ -101,91 +347,30 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>ios动画效果六:实现自定义的push动画</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:00:11.102Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这篇文章主要讲一下push的自定义转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
     
     
   </entry>
   
   <entry>
-    <title>iOS动画效果七：实现自定义present转场动画效果</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:00:50.233Z</updated>
+    <title>iOS开发中动画效果的探究（一）</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2021-02-19T02:30:16.000Z</published>
+    <updated>2021-02-19T02:34:23.336Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;这篇文章主要介绍如何实现自定义的present转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
+    <summary type="html">&lt;p&gt;一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下&lt;br&gt;1.使用UIView</summary>
         
       
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>iOS动画效果八-实现类似系统的侧滑返回效果</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:22:14.787Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这篇文章主要介绍怎样实现类似系统的测滑返回效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="动画" scheme="http://example.com/categories/%E5%8A%A8%E7%94%BB/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ios动画效果五：CABasicAnimation实现定点旋转的效果</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T01:51:48.000Z</published>
-    <updated>2021-02-19T02:02:38.118Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面提到过CALayer的anchorPoint和position对CABasicAnimation的动画过程会有影响，这篇文章主要讲的是：通过设置anchorPoint和position来实现CABAsicAnimation绕右下角旋转的效果&lt;br&gt;最终的效果图为：&lt;br</summary>
-        
-      
-    
-    
+    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
     
     
   </entry>

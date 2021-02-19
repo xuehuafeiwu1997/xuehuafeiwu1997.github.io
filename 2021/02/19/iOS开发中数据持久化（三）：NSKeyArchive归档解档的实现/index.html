@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="落叶兮兮" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要写NSKeyArchiver归档和NSKeyUnarchiver解档的实现 最终存储后的效果图为: Demo地址对应的文件是Human.m和ArchiveViewController.m 目的是希望能归档解档自定义对象，需要遵守NSSecureCoding协议，这部分在上一篇iOS开发中数据持久化（二）:NSUserDefault实现数据存储 里面讲过，所以human.m的实现和上一篇">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现">
+<meta property="og:url" content="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="落叶兮兮">
+<meta property="og:description" content="这篇文章主要写NSKeyArchiver归档和NSKeyUnarchiver解档的实现 最终存储后的效果图为: Demo地址对应的文件是Human.m和ArchiveViewController.m 目的是希望能归档解档自定义对象，需要遵守NSSecureCoding协议，这部分在上一篇iOS开发中数据持久化（二）:NSUserDefault实现数据存储 里面讲过，所以human.m的实现和上一篇">
+<meta property="og:locale">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-b0db09259ac580ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-54bf7849b97d6e99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-6b49dfb50f106ea2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-b0db09259ac580ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2021-02-19T03:02:16.000Z">
+<meta property="article:modified_time" content="2021-02-19T02:42:29.364Z">
+<meta property="article:author" content="落叶兮兮">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-b0db09259ac580ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/02/19/iOS开发中数据持久化（三）：NSKeyArchive归档解档的实现/"/>
+
+
+
+
+
+  <title>ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现 | 落叶兮兮</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ae637f1ecc4bf55d349023fb041e8ec2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶兮兮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:02:16+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要写NSKeyArchiver归档和NSKeyUnarchiver解档的实现</p>
+<p>最终存储后的效果图为:<br><img src="https://upload-images.jianshu.io/upload_images/18811075-b0db09259ac580ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/-saveData.git">Demo地址</a><br>对应的文件是Human.m和ArchiveViewController.m</p>
+<p>目的是希望能归档解档自定义对象，需要遵守NSSecureCoding协议，这部分在上一篇<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/5c882776440f">iOS开发中数据持久化（二）:NSUserDefault实现数据存储</a></p>
+<p>里面讲过，所以human.m的实现和上一篇中person.m的实现类似，这里直接写代码<br>在human.h中，声明相应的属性</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">Human </span>: NSObject&lt;NSSecureCoding&gt;</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, copy) NSString *name;</span><br><span class="line"><span class="variable">@property</span> (nonatomic, assign) NSInteger age;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>在human.m文件中,实现相应的协议方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">BOOL</span>)supportsSecureCoding &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//1.编码方法</span></span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="keyword">nonnull</span> <span class="built_in">NSCoder</span> *)coder &#123;</span><br><span class="line">    [coder encodeObject:<span class="keyword">self</span>.name forKey:<span class="string">@&quot;HumanName&quot;</span>];</span><br><span class="line">    [coder encodeInteger:<span class="keyword">self</span>.age forKey:<span class="string">@&quot;HumanAge&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.解码方法</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="keyword">nonnull</span> <span class="built_in">NSCoder</span> *)coder &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = [coder decodeObjectForKey:<span class="string">@&quot;HumanName&quot;</span>];</span><br><span class="line">        <span class="keyword">self</span>.age = [coder decodeIntegerForKey:<span class="string">@&quot;HumanAge&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后，创建ArchiveViewController，继承自UIViewController，主要有两种归档、解档方法（勉强可以算是两种），我们希望将数据存储到两个不同的文件中</p>
+<p>上面的效果图中data1文件存储的是第一种方法归档后的数据<br>data2文件存储的是第二种方法归档后的数据<br>所以声明两个路径以及归档按钮、解档按钮</p>
+<p>在ArchiveViewController.h中<br>声明相应的属性</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *archiveButton;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *unarchiveButton;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *path1;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *path2;</span><br></pre></td></tr></table></figure>
+
+<p>在.m文件中，懒加载以及完成基本的布局</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//放置在Cache文件夹下</span></span><br><span class="line">- (<span class="built_in">NSString</span> *)path1 &#123;</span><br><span class="line">    <span class="keyword">if</span> (_path1) &#123;</span><br><span class="line">        <span class="keyword">return</span> _path1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSArray</span> *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    _path1 = [[paths objectAtIndex:<span class="number">0</span>] stringByAppendingPathComponent:<span class="string">@&quot;Data1&quot;</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;path1 = %@&quot;</span>,_path1);</span><br><span class="line">    <span class="keyword">return</span> _path1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//放置在cache文件夹下</span></span><br><span class="line">- (<span class="built_in">NSString</span> *)path2 &#123;</span><br><span class="line">    <span class="keyword">if</span> (_path2) &#123;</span><br><span class="line">        <span class="keyword">return</span> _path2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSArray</span> *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    _path2 = [[paths objectAtIndex:<span class="number">0</span>] stringByAppendingPathComponent:<span class="string">@&quot;Data2&quot;</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;path2 = %@&quot;</span>,_path2);</span><br><span class="line">    <span class="keyword">return</span> _path2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)archiveButton &#123;</span><br><span class="line">    <span class="keyword">if</span> (_archiveButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _archiveButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _archiveButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">    _archiveButton.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    [_archiveButton setTitle:<span class="string">@&quot;归档&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_archiveButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_archiveButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(archiveData) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _archiveButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)unarchiveButton &#123;</span><br><span class="line">    <span class="keyword">if</span> (_unarchiveButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _unarchiveButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _unarchiveButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">    _unarchiveButton.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    [_unarchiveButton setTitle:<span class="string">@&quot;解档&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_unarchiveButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_unarchiveButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(unarchiveData) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _unarchiveButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;归档解档实现&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.archiveButton];</span><br><span class="line">    [<span class="keyword">self</span>.archiveButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.centerY.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">30</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.unarchiveButton];</span><br><span class="line">    [<span class="keyword">self</span>.unarchiveButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.archiveButton.mas_bottom).offset(<span class="number">20</span>);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">30</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面就是归档、解档的具体实现，在archiveData（）方法中实现归档，在unarchiveData()方法中实现解档</p>
+<p>这部分也是花费时间最多的部分，因为我设备是ios14，看原先的博客都是使用archiveRootObject…tofile就可将对象归档到文件中<br>但是在iOS14中，这个方法已经被弃用了</p>
+<p>后面只能看苹果开发文档<br>发现可以算做两种方法实现归档、解档<br>(本质都是一样的，获取到归档后的NSData数据，然后将其写入相应的文件中)<br>一种是使用类方法实现<br>一种是使用实例方法实现，可以添加对应的键值<br>##类方法实现归档解档<br>这个归档的路径使用path1<br>归档相关的代码为：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)archiveData &#123;</span><br><span class="line">   Human *human = [[Human alloc] init];</span><br><span class="line">    human.name = <span class="string">@&quot;落叶兮兮&quot;</span>;</span><br><span class="line">    human.age = <span class="number">24</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//第一种方法，使用NSKeyArchiver类方法，将对象转化为NSData，然后写入指定的文件中</span></span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSData</span> *data1 = [<span class="built_in">NSKeyedArchiver</span> archivedDataWithRootObject:human requiringSecureCoding:<span class="literal">YES</span> error:&amp;error];</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;归档失败，失败的原因是%@&quot;</span>,error);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">BOOL</span> success = [data1 writeToFile:<span class="keyword">self</span>.path1 atomically:<span class="literal">YES</span>];</span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;写入成功&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;写入失败&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行后，点击归档，就可以看到相应的文件存在<br><img src="https://upload-images.jianshu.io/upload_images/18811075-54bf7849b97d6e99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>对应的解档读取数据的代码如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)unarchiveData &#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@&quot;开始解档数据&quot;</span>);</span><br><span class="line">    <span class="comment">//使用NSKeyedUnarchiver类方法解析</span></span><br><span class="line">    <span class="built_in">NSData</span> *data1 = [<span class="built_in">NSData</span> dataWithContentsOfFile:<span class="keyword">self</span>.path1];</span><br><span class="line">    <span class="built_in">NSError</span> *error1 = <span class="literal">nil</span>;</span><br><span class="line">    Human *human1 = [<span class="built_in">NSKeyedUnarchiver</span> unarchivedObjectOfClass:[Human <span class="keyword">class</span>] fromData:data1 error:&amp;error1];</span><br><span class="line">    <span class="keyword">if</span> (error1) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;解档数据失败,失败的原因是%@&quot;</span>,error1);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;解档数据成功&quot;</span>);</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;human name = %@,age = %ld&quot;</span>,human1.name,human1.age);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行成功，点击解档，可以读取相应的内容</p>
+<p>##使用实例方法归档和解档<br>这个归档的路径使用path2<br>归档的代码为：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)archiveData &#123;</span><br><span class="line">     <span class="built_in">NSLog</span>(<span class="string">@&quot;开始归档数据&quot;</span>);</span><br><span class="line">    Human *human = [[Human alloc] init];</span><br><span class="line">    human.name = <span class="string">@&quot;落叶兮兮&quot;</span>;</span><br><span class="line">    human.age = <span class="number">24</span>;</span><br><span class="line"><span class="comment">//第二种使用NSKeyArchiver的实例方法,编码时使用相应的键值，然后将编码后的数据写入执行的路径中</span></span><br><span class="line">    <span class="built_in">NSKeyedArchiver</span> *archiver = [[<span class="built_in">NSKeyedArchiver</span> alloc] initRequiringSecureCoding:<span class="literal">YES</span>];</span><br><span class="line">    [archiver encodeObject:human forKey:<span class="string">@&quot;Human&quot;</span>];</span><br><span class="line">    [archiver finishEncoding];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;NSKeyArchiver编码的数据为%@&quot;</span>,archiver.encodedData);</span><br><span class="line">    [archiver.encodedData writeToFile:<span class="keyword">self</span>.path2 atomically:<span class="literal">YES</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;归档结束&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解档的代码为：（注意解档时的键值要和归档的键值保持一致）</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用NSKeyedUnarchiver实例方法解析</span></span><br><span class="line">   <span class="built_in">NSError</span> *error2 = <span class="literal">nil</span>;</span><br><span class="line">   <span class="built_in">NSData</span> *data2 = [<span class="built_in">NSData</span> dataWithContentsOfFile:<span class="keyword">self</span>.path2];</span><br><span class="line">   <span class="built_in">NSKeyedUnarchiver</span> *unarchiver = [[<span class="built_in">NSKeyedUnarchiver</span> alloc] initForReadingFromData:data2 error:&amp;error2];</span><br><span class="line">   Human *human2 = [unarchiver decodeObjectOfClass:[Human <span class="keyword">class</span>] forKey:<span class="string">@&quot;Human&quot;</span>];</span><br><span class="line">   [unarchiver finishDecoding];</span><br><span class="line">   <span class="keyword">if</span> (error2) &#123;</span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;解档数据失败,失败的原因是%@&quot;</span>,error2);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;解档数据成功&quot;</span>);</span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;human name = %@,age = %ld&quot;</span>,human2.name,human2.age);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>运行后，可以查看到相应的文件<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6b49dfb50f106ea2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>而且，来年各种功能方法存储的是一样的内容，data1文件的大小是243kb，data2文件的大小是244kb，或许就是因为data2存储时设置了键值“Human”</p>
+<p>#总结<br>最终存储后的效果图为:<br><img src="https://upload-images.jianshu.io/upload_images/18811075-b0db09259ac580ca.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/-saveData.git">Demo地址</a><br>对应的文件是Human.m和ArchiveViewController.m</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" rel="next" title="ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据">
+                <i class="fa fa-chevron-left"></i> ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" rel="prev" title="ios开发中数据持久化总结（四）:使用FMDataBase存储数据">
+                ios开发中数据持久化总结（四）:使用FMDataBase存储数据 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/luoyexixi.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落叶兮兮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '9DPBhvJGT7M2Iv44IjXtGI36-gzGzoHsz',
+        appKey: 'oTlAxx65Hk7vT8sUX0Ehtwqa',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -223,21 +223,11 @@
       
         
         <li class="menu-item menu-item-categories">
-          <a href="/categories/%20" rel="section">
+          <a href="/categories/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
           </a>
         </li>
       
@@ -274,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -293,7 +283,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/" itemprop="url">ios动画效果三：CABasicAnimation实现平移、旋转和放大</a></h1>
+                <a class="post-title-link" href="/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/" itemprop="url">iphone8升级iOS14.3,xcode运行时卡在初始界面</a></h1>
         
 
         <div class="post-meta">
@@ -305,285 +295,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
-                2021-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          使用CABAsicAnimation来实现动画的放缩和旋转是比较常用的，这篇主要介绍CABasicAnimation实现简单的动画效果最终的效果图为：
-Demo地址对应的实现文件是SecondViewController
-首先，我们先定义一个UIView以及三个button按钮，分别对应平移、放大和
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/luoyexixi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="落叶兮兮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/" itemprop="url">ios动画效果四：使用pop框架实现弹簧效果</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
-                2021-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          pop框架是Google推出的用于处理iOS动画的一个特别好用的框架如果对这个框架没有了解的，可与去看一下官方提供的资料
-这次我主要使用pop框架实现一个简单的弹簧效果对应的demo为Demo
-实现文件名称是ThirdViewController最终的效果图为：
-首先，定义一个UIView属性
-1@
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/luoyexixi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="落叶兮兮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="url">iOS开发中动画效果的探究（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:10:16+08:00">
                 2021-02-19
               </time>
             
@@ -606,8 +318,8 @@ Demo地址对应的实现文件是SecondViewController
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8A%A8%E7%94%BB/" itemprop="url" rel="index">
-                    <span itemprop="name">动画</span>
+                  <a href="/categories/xcode%E9%97%AE%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">xcode问题</span>
                   </a>
                 </span>
 
@@ -624,8 +336,8 @@ Demo地址对应的实现文件是SecondViewController
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -655,11 +367,14 @@ Demo地址对应的实现文件是SecondViewController
       
         
           
-          一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下1.使用UIView Animation实现动画效果2.使用CABasicAnimation实现平移、放大和旋转的效果3.使用pop框架实现弹簧动画4.使用CABasicAnimation实现绕定点（以右
+          前面有提到，为了解决iphone8在iOS14.1上的前置摄像头的问题，无奈只能升级系统，升级到iOS14.3
+通过从网上下载真机包放到xcode中，可以使用xcode重新运行，但是又遇到一个恶心的问题
+就是运行的时候卡在初始界面，每次大概两分钟左右，就很绝望
+为了解决这个问题，在网上找解决方法，大
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/#more" rel="contents">
+            <a class="btn" href="/2021/02/19/iphone8%E5%8D%87%E7%BA%A7iOS14-3%EF%BC%8Cxcode%E8%BF%90%E8%A1%8C%E6%97%B6%E5%8D%A1%E5%9C%A8%E5%88%9D%E5%A7%8B%E7%95%8C%E9%9D%A2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -710,7 +425,7 @@ Demo地址对应的实现文件是SecondViewController
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -729,7 +444,7 @@ Demo地址对应的实现文件是SecondViewController
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/" itemprop="url">iOS动画效果二：UIViewAnimation实现动画</a></h1>
+                <a class="post-title-link" href="/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="url">iphone8升级iOS14.3,低版本不支持高版本iOS的解决办法</a></h1>
         
 
         <div class="post-meta">
@@ -741,7 +456,7 @@ Demo地址对应的实现文件是SecondViewController
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:09:16+08:00">
                 2021-02-19
               </time>
             
@@ -752,6 +467,28 @@ Demo地址对应的实现文件是SecondViewController
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/xcode%E9%97%AE%E9%A2%98/" itemprop="url" rel="index">
+                    <span itemprop="name">xcode问题</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -760,8 +497,8 @@ Demo地址对应的实现文件是SecondViewController
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -791,15 +528,15 @@ Demo地址对应的实现文件是SecondViewController
       
         
           
-          这是我们实现动画效果最简单的方法了，可以实现简单的平移、缩放和旋转功能，平常我们基本上对于简单的平移使用该方法来完成
-Demo地址
-对应实现UIView Animation的文件是FirstViewController
-首先，我们定义一个UIView属性
-1@property (nonatomic,
+          今天遇到一个极其恶心的问题，一直想骂apple
+手机使用的iphone8，结果前段时间发现自拍的话嘴角特别歪我还以为是我中午趴在桌子上午睡引起的
+结果，前两天使用华为自拍，发现没什么问题，使用ipad自拍也没什么问题
+结果就是iphone8在ios14.0系统上自拍出现bug
+为了解决这个问题，更新
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/#more" rel="contents">
+            <a class="btn" href="/2021/02/19/iphone%E5%8D%87%E7%BA%A7iOS14-3%E7%9A%84%E7%B3%BB%E7%BB%9F%EF%BC%8C%E4%BD%8E%E7%89%88%E6%9C%ACxcode%E4%B8%8D%E6%94%AF%E6%8C%81%E9%AB%98%E7%89%88%E6%9C%ACiOS%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -850,7 +587,7 @@ Demo地址
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -869,7 +606,7 @@ Demo地址
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" itemprop="url">ios动画效果六:实现自定义的push动画</a></h1>
+                <a class="post-title-link" href="/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="url">pod install出错的解决办法</a></h1>
         
 
         <div class="post-meta">
@@ -881,7 +618,7 @@ Demo地址
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:06:16+08:00">
                 2021-02-19
               </time>
             
@@ -892,6 +629,28 @@ Demo地址
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cocoapods/" itemprop="url" rel="index">
+                    <span itemprop="name">cocoapods</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -900,8 +659,8 @@ Demo地址
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -931,15 +690,15 @@ Demo地址
       
         
           
-          这篇文章主要讲一下push的自定义转场动画最终的效果图为：
-Demo地址为：Demo
-相应的代码文件为：fifthViewController,PushAnimationController,CustomViewController
-关于转场动画，下面这张图将的很清楚
-从上面的图中可以看出，为了实现
+          最近合并项目代码，按照正常流程pod install，pod install成功之后运行项目代码，结果出现80个bug错误类型大致为
+
+Undefined symbol: _avio_writeModule &#039;GoogleMobileAds&#039; not found in iOS
+
+
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/#more" rel="contents">
+            <a class="btn" href="/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -990,7 +749,7 @@ Demo地址为：Demo
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1009,7 +768,7 @@ Demo地址为：Demo
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" itemprop="url">iOS动画效果七：实现自定义present转场动画效果</a></h1>
+                <a class="post-title-link" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" itemprop="url">ios开发中数据持久化总结（四）:使用FMDataBase存储数据</a></h1>
         
 
         <div class="post-meta">
@@ -1021,7 +780,7 @@ Demo地址为：Demo
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:03:16+08:00">
                 2021-02-19
               </time>
             
@@ -1032,6 +791,28 @@ Demo地址为：Demo
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1040,8 +821,8 @@ Demo地址为：Demo
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1071,13 +852,498 @@ Demo地址为：Demo
       
         
           
-          这篇文章主要介绍如何实现自定义的present转场动画最终的效果图为：
-Demo地址为：Demo地址
-相关的文件名为：SixthViewController,CustomModalViewController,PresentingAnimationController,DismissingAnima
+          这篇主要是使用FMDataBase创建简单的数据库表，用来简单的存储数据
+Demo地址对应的实现文件如下：
+存储成功后的效果图：(存储的文件是app.db,是一个数据库文件，mac上我是使用DB Browser Fot SQLite进行查看的，非常好用的一个免费软件)
+FMDB框架存储数据实际上就是
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/#more" rel="contents">
+            <a class="btn" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" itemprop="url">ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:02:16+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          这篇文章主要写NSKeyArchiver归档和NSKeyUnarchiver解档的实现
+最终存储后的效果图为:
+Demo地址对应的文件是Human.m和ArchiveViewController.m
+目的是希望能归档解档自定义对象，需要遵守NSSecureCoding协议，这部分在上一篇iOS开发中
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" itemprop="url">ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:01:16+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          这篇文章主要讲述NSUserDefaults的简单使用Demo地址对应实现的文件是NSUserDefaultViewController.m文件和person.m文件存储数据成功后，在沙盒中查看相应的存储文件数据如下图所示：
+
+注意，NSUserDefaults除了存储一些基本的数据类型之外，还可以
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="url">ios开发中数据持久化总结（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:00:16+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          ios开发中，常用的几种数据持久化的方式，主要有以下几种
+
+1.使用NSUserDefaults存储数据2.使用Archive对象归类3.使用SQlite数据库存储数据(尝试用FMDataBase第三方库)
+
+这次找了时间，总结了三种数据持久化方式的实现，在这里记录一下
+
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1159,7 +1425,7 @@ Demo地址为：Demo地址
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T10:37:16+08:00">
                 2021-02-19
               </time>
             
@@ -1182,8 +1448,8 @@ Demo地址为：Demo地址
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%8A%A8%E7%94%BB/" itemprop="url" rel="index">
-                    <span itemprop="name">动画</span>
+                  <a href="/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发动画效果探究</span>
                   </a>
                 </span>
 
@@ -1290,7 +1556,7 @@ Demo地址为：Demo地址
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1309,7 +1575,7 @@ Demo地址为：Demo地址
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/" itemprop="url">ios动画效果五：CABasicAnimation实现定点旋转的效果</a></h1>
+                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" itemprop="url">iOS动画效果七：实现自定义present转场动画效果</a></h1>
         
 
         <div class="post-meta">
@@ -1321,7 +1587,7 @@ Demo地址为：Demo地址
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T09:51:48+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T10:36:16+08:00">
                 2021-02-19
               </time>
             
@@ -1332,6 +1598,28 @@ Demo地址为：Demo地址
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发动画效果探究</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1340,8 +1628,8 @@ Demo地址为：Demo地址
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1371,12 +1659,13 @@ Demo地址为：Demo地址
       
         
           
-          前面提到过CALayer的anchorPoint和position对CABasicAnimation的动画过程会有影响，这篇文章主要讲的是：通过设置anchorPoint和position来实现CABAsicAnimation绕右下角旋转的效果最终的效果图为：
-Demo地址对应的实现文件为：Four
+          这篇文章主要介绍如何实现自定义的present转场动画最终的效果图为：
+Demo地址为：Demo地址
+相关的文件名为：SixthViewController,CustomModalViewController,PresentingAnimationController,DismissingAnima
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/#more" rel="contents">
+            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1427,7 +1716,7 @@ Demo地址对应的实现文件为：Four
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -1446,7 +1735,7 @@ Demo地址对应的实现文件为：Four
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/" itemprop="url">iOS14画中画探究</a></h1>
+                <a class="post-title-link" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" itemprop="url">ios动画效果六:实现自定义的push动画</a></h1>
         
 
         <div class="post-meta">
@@ -1458,8 +1747,8 @@ Demo地址对应的实现文件为：Four
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-14T10:40:15+08:00">
-                2020-12-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T10:35:16+08:00">
+                2021-02-19
               </time>
             
 
@@ -1469,6 +1758,28 @@ Demo地址对应的实现文件为：Four
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS开发动画效果探究</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1477,8 +1788,8 @@ Demo地址对应的实现文件为：Four
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/" itemprop="commentCount"></span>
+                <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1508,151 +1819,15 @@ Demo地址对应的实现文件为：Four
       
         
           
-          最近开始研究iOS14画中画功能的实现，最终分别通过使用AVPlayerViewController构建播放器和AVPlayerLayer构建播放器，分别实现相应的画中画的功能实现的效果图为：
-项目的demo地址为：demo地址
-#AVPlayerViewController实现画中画的功能画中画功
+          这篇文章主要讲一下push的自定义转场动画最终的效果图为：
+Demo地址为：Demo
+相应的代码文件为：fifthViewController,PushAnimationController,CustomViewController
+关于转场动画，下面这张图将的很清楚
+从上面的图中可以看出，为了实现
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/luoyexixi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="落叶兮兮">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/" itemprop="url">socket通信原理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-14T10:40:15+08:00">
-                2020-12-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现
-这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket
-因为需要有服务器充当角色，没有相应的服务器，使用mac自带的apache
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/#more" rel="contents">
+            <a class="btn" href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1742,9 +1917,9 @@ Demo地址对应的实现文件为：Four
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/%20%7C%7C%20archive">
+                <a href="/archives">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1755,7 +1930,7 @@ Demo地址对应的实现文件为：Four
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

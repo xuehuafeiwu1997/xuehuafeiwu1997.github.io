@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="落叶兮兮" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="这篇文章主要讲述NSUserDefaults的简单使用Demo地址对应实现的文件是NSUserDefaultViewController.m文件和person.m文件存储数据成功后，在沙盒中查看相应的存储文件数据如下图所示：  注意，NSUserDefaults除了存储一些基本的数据类型之外，还可以存储NSArray、NSDictionary等一些基本的数据类型，如果想要存储自定的数据类型，执行将">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据">
+<meta property="og:url" content="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="落叶兮兮">
+<meta property="og:description" content="这篇文章主要讲述NSUserDefaults的简单使用Demo地址对应实现的文件是NSUserDefaultViewController.m文件和person.m文件存储数据成功后，在沙盒中查看相应的存储文件数据如下图所示：  注意，NSUserDefaults除了存储一些基本的数据类型之外，还可以存储NSArray、NSDictionary等一些基本的数据类型，如果想要存储自定的数据类型，执行将">
+<meta property="og:locale">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-1c4d9e91f4ded275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-aeff1e0ea86c8b03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-0913ac04bb1efdb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-6306a01aeae1c1e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-57aac58b90d785a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-1c4d9e91f4ded275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2021-02-19T03:01:16.000Z">
+<meta property="article:modified_time" content="2021-02-19T02:41:54.992Z">
+<meta property="article:author" content="落叶兮兮">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-1c4d9e91f4ded275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/02/19/iOS开发中数据持久化（二）-NSUserDefaults实现存储数据/"/>
+
+
+
+
+
+  <title>ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据 | 落叶兮兮</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ae637f1ecc4bf55d349023fb041e8ec2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶兮兮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ios开发中数据持久化总结（二）:NSUserDefaults实现存储数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:01:16+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%BA%8C%EF%BC%89-NSUserDefaults%E5%AE%9E%E7%8E%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇文章主要讲述NSUserDefaults的简单使用<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/-saveData.git">Demo地址</a><br>对应实现的文件是NSUserDefaultViewController.m文件和person.m文件<br>存储数据成功后，在沙盒中查看相应的存储文件数据如下图所示：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-1c4d9e91f4ded275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSUserDefault存储数据"></p>
+<blockquote>
+<p>注意，NSUserDefaults除了存储一些基本的数据类型之外，还可以存储NSArray、NSDictionary等一些基本的数据类型，如果想要存储自定的数据类型，执行将自定义对象转化为NSData，然后使用NSUserDefaults存储，上图中Person就是自定义对象，注意，每次读取获得的数据类型都是不可变类型，例如，你存储进去的是NSMutableArray类型，但是读取出来之后就是NSArray类型</p>
+</blockquote>
+<p>#如何查看app的沙盒文件<br>##模拟机<br>在这里，先说一下，如何查看文件存储的沙盒位置<br>如果是使用xcode提供的模拟机，那么文件就在自己电脑上，使用</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取沙盒根目录</span></span><br><span class="line">NSString *directory = <span class="constructor">NSHomeDirectory()</span>;</span><br><span class="line"><span class="constructor">NSLog(@<span class="string">&quot;directory:%@&quot;</span>, <span class="params">directory</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>这样可以获得app沙盒文件的根目录</p>
+<p>##真机<br>如果使用的是真机测试<br>在xcode中，点击windows-&gt;Devices And Simulators，找到我们对应的app名称<br><img src="https://upload-images.jianshu.io/upload_images/18811075-aeff1e0ea86c8b03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>选中，点击下方的齿轮<br><img src="https://upload-images.jianshu.io/upload_images/18811075-0913ac04bb1efdb3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>点击Download Container即可将app的沙盒文件下载到电脑上，然后可以查看</p>
+<p>#NSUserDefaults实现<br>首先定义两个按钮，一个用于写入数据，一个用于读取数据<br>在NSUserDefaultViewController.h文件中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *<span class="built_in">NSUserDefaultWriteButton</span>;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *<span class="built_in">NSUserDefaultReadButton</span>;</span><br></pre></td></tr></table></figure>
+<p>之后，在.m中实现相应的懒加载和布局</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;NSUserDefault存储&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.NSUserDefaultWriteButton];</span><br><span class="line">    [<span class="keyword">self</span>.NSUserDefaultWriteButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.centerY.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">30</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.NSUserDefaultReadButton];</span><br><span class="line">    [<span class="keyword">self</span>.NSUserDefaultReadButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.NSUserDefaultWriteButton.mas_bottom).offset(<span class="number">20</span>);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">30</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)<span class="built_in">NSUserDefaultWriteButton</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (_NSUserDefaultWriteButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _NSUserDefaultWriteButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _NSUserDefaultWriteButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">    _NSUserDefaultWriteButton.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    [_NSUserDefaultWriteButton setTitle:<span class="string">@&quot;NSUserDefault写入数据&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_NSUserDefaultWriteButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_NSUserDefaultWriteButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(nsUserDefaultWirteData) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _NSUserDefaultWriteButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)<span class="built_in">NSUserDefaultReadButton</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (_NSUserDefaultReadButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _NSUserDefaultReadButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _NSUserDefaultReadButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">    _NSUserDefaultReadButton.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    [_NSUserDefaultReadButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_NSUserDefaultReadButton setTitle:<span class="string">@&quot;NSUserDefault读出数据&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_NSUserDefaultReadButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(nsUserDefaultReadData) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _NSUserDefaultReadButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)nsUserDefaultWirteData &#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@&quot;NSUserDefault写入数据&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)nsUserDefaultReadData &#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@&quot;NSUserDefault读出数据&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>之后，我们就可以在按钮对应的点击方法中实现存储数据和读取数据</p>
+<p>接下来一个一个说<br>先获取到唯一的NSUserDefaults对象</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSUserDefaults</span> *ud = [<span class="built_in">NSUserDefaults</span> standardUserDefaults];</span><br></pre></td></tr></table></figure>
+<p>存储的代码写在nsUserDefaultWirteData方法中，读取的代码写在nsUserDefaultReadData中<br>##1.整数</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储整数</span></span><br><span class="line">   [ud <span class="attr">setInteger:</span><span class="number">111</span> <span class="attr">forKey:</span>@<span class="string">&quot;INT&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取NSInteger</span></span><br><span class="line">   <span class="built_in">NSInteger</span> i = [[ud objectForKey:<span class="string">@&quot;INT&quot;</span>] integerValue];</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@&quot;i = %ld&quot;</span>,(<span class="keyword">long</span>)i);</span><br></pre></td></tr></table></figure>
+<p>##2.BOOL值</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储bool值</span></span><br><span class="line">   [ud <span class="attr">setBool:</span>YES <span class="attr">forKey:</span>@<span class="string">&quot;BOOL&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取bool值</span></span><br><span class="line">    <span class="built_in">BOOL</span> isYES = [ud objectForKey:<span class="string">@&quot;BOOL&quot;</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;isYES = %d&quot;</span>,isYES);</span><br></pre></td></tr></table></figure>
+<p>##3.浮点数</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储浮点数</span></span><br><span class="line">    [ud <span class="attr">setFloat:</span><span class="number">1.8</span> <span class="attr">forKey:</span>@<span class="string">&quot;float&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取浮点数</span></span><br><span class="line">    <span class="built_in">CGFloat</span> f = [[ud objectForKey:<span class="string">@&quot;float&quot;</span>] floatValue];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;f = %f&quot;</span>,f);</span><br></pre></td></tr></table></figure>
+<p>##4.NSString字符串</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储字符串NSString</span></span><br><span class="line">    [ud <span class="attr">setObject:</span>@<span class="string">&quot;落叶兮兮&quot;</span> <span class="attr">forKey:</span>@<span class="string">&quot;Name&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取NSString</span></span><br><span class="line">    NSString *<span class="keyword">name</span> = [ud objectForKey:@<span class="string">&quot;Name&quot;</span>];</span><br><span class="line">    NSLog(@<span class="string">&quot;name = %@&quot;</span>,<span class="keyword">name</span>);</span><br></pre></td></tr></table></figure>
+<p>##5.NSNumber</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储NSNumber</span></span><br><span class="line">    NSNumber *num = [NSNumber <span class="attr">numberWithInteger:</span><span class="number">100</span>];</span><br><span class="line">    [ud <span class="attr">setObject:</span>num <span class="attr">forKey:</span>@<span class="string">&quot;NUM&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取NSNumber</span></span><br><span class="line">    NSNumber *<span class="built_in">number</span> = [ud objectForKey:@<span class="string">&quot;NUM&quot;</span>];</span><br><span class="line">    NSLog(@<span class="string">&quot;number = %@&quot;</span>,<span class="built_in">number</span>);</span><br></pre></td></tr></table></figure>
+<p>##6.数组NSArray</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存储数组</span></span><br><span class="line">    <span class="built_in">NSArray</span> *array = [<span class="built_in">NSArray</span> arrayWithObjects:<span class="string">@&quot;11&quot;</span>,<span class="string">@&quot;22&quot;</span>,<span class="string">@&quot;33&quot;</span>,<span class="literal">nil</span>];</span><br><span class="line">    [ud setObject:array forKey:<span class="string">@&quot;ARRAY&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取NSArray</span></span><br><span class="line">    <span class="built_in">NSArray</span> *arr = [ud objectForKey:<span class="string">@&quot;ARRAY&quot;</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;arr = %@&quot;</span>,arr);</span><br></pre></td></tr></table></figure>
+<p>##7.字典NSDictionary</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSMutableDictionary *dic = [NSMutableDictionary dictionary];</span><br><span class="line"> [dic <span class="attr">setValue:</span>@<span class="string">&quot;落叶兮兮&quot;</span> <span class="attr">forKey:</span>@<span class="string">&quot;Id1&quot;</span>];</span><br><span class="line"> [dic <span class="attr">setValue:</span>@<span class="string">&quot;雪花飞舞&quot;</span> <span class="attr">forKey:</span>@<span class="string">&quot;Id2&quot;</span>];</span><br><span class="line"> [ud <span class="attr">setObject:</span>dic <span class="attr">forKey:</span>@<span class="string">&quot;Dictionary&quot;</span>];</span><br></pre></td></tr></table></figure>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读取NSDictionary</span></span><br><span class="line">    NSDictionary *dic = <span class="literal">[<span class="identifier">ud</span> <span class="identifier">objectForKey</span>:@&quot;D<span class="identifier">ictionary</span>&quot;]</span>;</span><br><span class="line">    <span class="constructor">NSLog(@<span class="string">&quot;dic id1 = %@&quot;</span>,[<span class="params">dic</span> <span class="params">objectForKey</span>:@<span class="string">&quot;Id1&quot;</span>])</span>;</span><br><span class="line">    <span class="constructor">NSLog(@<span class="string">&quot;dic id2 = %@&quot;</span>,[<span class="params">dic</span> <span class="params">objectForKey</span>:@<span class="string">&quot;Id2&quot;</span>])</span>;</span><br></pre></td></tr></table></figure>
+<p>注意，NSUserDefaults读取后的类型都是不可变的类型</p>
+<p>还有其他的一些基本数据类型，比如NSDate，Double等，这里就不再写了，下面主要讲自定义对象的存储，这部分比较复杂</p>
+<p>##自定义对象Person<br>对于NSUserDefault存储自定义对象，相比其他类型，这部分是最复杂的，将这部分放在最后再写</p>
+<p>我们都知道，存储自定义对象，应该将对象转换为NSData数据类型，然后将其存储到plist文件中，这里转换需要用到NSKeyedArchiver归档和NSKeyedUnarchiver解档</p>
+<p>首先，我们新建一个文件，命名为Person<br>定义基本的属性和赋值方法<br>在person.h文件中，</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name age:(<span class="built_in">NSInteger</span>)age;</span><br></pre></td></tr></table></figure>
+<p>在person.m文件中，</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)setName:(<span class="built_in">NSString</span> *)name age:(<span class="built_in">NSInteger</span>)age &#123;</span><br><span class="line">    <span class="keyword">self</span>.name = name;</span><br><span class="line">    <span class="keyword">self</span>.age = age;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样基本类Person就定义好了，在NSUserDefaultViewController中初始化并赋值<br>在nsUserDefaultWriteData方法中</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Person</span> *<span class="keyword">person</span> = <span class="comment">[<span class="comment">[Person alloc]</span> init]</span>;</span><br><span class="line"><span class="comment">[person setName:@&quot;落叶兮兮&quot; age:24]</span>;</span><br></pre></td></tr></table></figure>
+<p>之后，将Person转化为NSData对象</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//使用<span class="built_in">error</span>接收错误信息，一旦出错，<span class="built_in">error</span>里面存储的就是错误信息</span><br><span class="line">NSError *<span class="built_in">error</span> = <span class="literal">nil</span>;</span><br><span class="line">NSData *data = [NSKeyedArchiver archivedDataWithRootObject:person requiringSecureCoding:YES <span class="built_in">error</span>:&amp;<span class="built_in">error</span>];</span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">error</span>) &#123;</span><br><span class="line">        NSLog(@<span class="string">&quot;写入数据时转换失败，失败的原因是%@&quot;</span>,<span class="built_in">error</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>运行之后，报错<br><img src="https://upload-images.jianshu.io/upload_images/18811075-6306a01aeae1c1e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="自定义对象转化为NSData对象报错"></p>
+<p>原因是Person类没有实现NSSecureCoding协议，关于这个协议方法，主要是为了数据安全，防止被别人篡改，具体的可以去苹果官方文档查看</p>
+<p>接下来就很简单了，我们需要实现相应的协议方法<br>person类遵守<NSSecureCoding></NSSecureCoding></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">interface</span> <span class="symbol">Person</span> : <span class="symbol">NSObject</span>&lt;<span class="symbol">NSSecureCoding</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>点进去可以看到NSSecureCoding协议遵守<NSCoding>协议<br><img src="https://upload-images.jianshu.io/upload_images/18811075-57aac58b90d785a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSSecureCoding协议"></NSCoding></p>
+<p>所以需要实现NSCoding协议的方法<br>在Person.m文件中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.编码方法</span></span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder &#123;</span><br><span class="line">    [aCoder encodeObject:<span class="keyword">self</span>.name forKey:<span class="string">@&quot;PersonName&quot;</span>];</span><br><span class="line">    [aCoder encodeInteger:<span class="keyword">self</span>.age forKey:<span class="string">@&quot;PersonAge&quot;</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.解码方法</span></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = [aDecoder decodeObjectForKey:<span class="string">@&quot;PersonName&quot;</span>];</span><br><span class="line">        <span class="keyword">self</span>.age = [aDecoder decodeIntegerForKey:<span class="string">@&quot;PersonAge&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意，根据NSSecureCoding协议的介绍，我们必须实现supportsSecureCoding方法，并且返回YES，这样才是支持NSSecureCoding协议</p>
+<p>而且必须得是类方法，刚开始我写成了实例方法，结果一直报错，转化失败</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">BOOL</span>)supportsSecureCoding &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;执行了这个方法&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此事执行转化方法，发现没有错误出现，接下来是读取，读取获得的是NSData对象，需要将其转化为Person自定义对象，使用解档</p>
+<figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSData *data = [ud objectForKey:@<span class="string">&quot;Person&quot;</span>];</span><br><span class="line">    Person *person = [[Person alloc] init];</span><br><span class="line">    NSError *<span class="keyword">error</span> = nil;</span><br><span class="line">    person = [NSKeyedUnarchiver unarchivedObjectOfClass:[Person <span class="keyword">class</span>] fromData:data <span class="keyword">error</span>:&amp;<span class="keyword">error</span>];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">error</span>) &#123;</span><br><span class="line">        NS<span class="built_in">Log</span>(@<span class="string">&quot;转化出错，出错的原因为%@&quot;</span>,<span class="keyword">error</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    NS<span class="built_in">Log</span>(@<span class="string">&quot;person name = %@&quot;</span>,person.name);</span><br><span class="line">    NS<span class="built_in">Log</span>(@<span class="string">&quot;person age = %ld&quot;</span>,(long)person.age);</span><br></pre></td></tr></table></figure>
+<p>运行之后发现能够正常输出内容，转化类型无错误发生</p>
+<p>##9.存储路径</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//NSUserDefault写入数据，默认放在library/Preferences文件夹下，以.plist文件存放</span></span><br><span class="line">    </span><br><span class="line">   <span class="built_in">NSArray</span> *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSLibraryDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="built_in">NSString</span> *path = [paths objectAtIndex:<span class="number">0</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;数据持久化的路径为：%@&quot;</span>,path);</span><br></pre></td></tr></table></figure>
+<p>最好使用模拟机运行，模拟机运行之后获得path，直接在finder中command+G可以直接到存储的plist文件</p>
+<p>如果使用真机，需要将数据包下载到电脑上才能看到，比较麻烦</p>
+<p>#总结<br>最终的数据存储图为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-1c4d9e91f4ded275.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NSUserDefault存储数据"></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/-saveData.git">Demo地址</a><br>对应实现的文件是NSUserDefaultViewController.m文件和person.m文件</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="ios开发中数据持久化总结（一）">
+                <i class="fa fa-chevron-left"></i> ios开发中数据持久化总结（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="prev" title="ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现">
+                ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/luoyexixi.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落叶兮兮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '9DPBhvJGT7M2Iv44IjXtGI36-gzGzoHsz',
+        appKey: 'oTlAxx65Hk7vT8sUX0Ehtwqa',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

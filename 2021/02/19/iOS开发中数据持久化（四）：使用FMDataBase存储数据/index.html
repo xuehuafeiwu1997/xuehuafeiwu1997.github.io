@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="落叶兮兮" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="这篇主要是使用FMDataBase创建简单的数据库表，用来简单的存储数据 Demo地址对应的实现文件如下： 存储成功后的效果图：(存储的文件是app.db,是一个数据库文件，mac上我是使用DB Browser Fot SQLite进行查看的，非常好用的一个免费软件) FMDB框架存储数据实际上就是操纵SQLite数据库首先，新建一个文件Student，继承自NSObject类，在里面定义一些常见">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ios开发中数据持久化总结（四）:使用FMDataBase存储数据">
+<meta property="og:url" content="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/index.html">
+<meta property="og:site_name" content="落叶兮兮">
+<meta property="og:description" content="这篇主要是使用FMDataBase创建简单的数据库表，用来简单的存储数据 Demo地址对应的实现文件如下： 存储成功后的效果图：(存储的文件是app.db,是一个数据库文件，mac上我是使用DB Browser Fot SQLite进行查看的，非常好用的一个免费软件) FMDB框架存储数据实际上就是操纵SQLite数据库首先，新建一个文件Student，继承自NSObject类，在里面定义一些常见">
+<meta property="og:locale">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-3558497bb7eced46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-23fe40a3964b3f1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-ee4e614c1065a600.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-3558497bb7eced46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-23fe40a3964b3f1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-ee4e614c1065a600.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="article:published_time" content="2021-02-19T03:03:16.000Z">
+<meta property="article:modified_time" content="2021-02-19T02:47:37.530Z">
+<meta property="article:author" content="落叶兮兮">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-3558497bb7eced46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/02/19/iOS开发中数据持久化（四）：使用FMDataBase存储数据/"/>
+
+
+
+
+
+  <title>ios开发中数据持久化总结（四）:使用FMDataBase存储数据 | 落叶兮兮</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ae637f1ecc4bf55d349023fb041e8ec2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶兮兮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ios开发中数据持久化总结（四）:使用FMDataBase存储数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T11:03:16+08:00">
+                2021-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS数据持久化总结</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E5%9B%9B%EF%BC%89%EF%BC%9A%E4%BD%BF%E7%94%A8FMDataBase%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>这篇主要是使用FMDataBase创建简单的数据库表，用来简单的存储数据</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/-saveData.git">Demo地址</a><br>对应的实现文件如下：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-3558497bb7eced46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="对应的实现文件"></p>
+<p>存储成功后的效果图：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-23fe40a3964b3f1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据库结构"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-ee4e614c1065a600.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="对应的数据"><br>(存储的文件是app.db,是一个数据库文件，mac上我是使用DB Browser Fot SQLite进行查看的，非常好用的一个免费软件)</p>
+<p>FMDB框架存储数据实际上就是操纵SQLite数据库<br>首先，新建一个文件Student，继承自NSObject类，在里面定义一些常见的Student属性</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *<span class="keyword">id</span>;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *name;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *college;<span class="comment">//学院</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *university;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSInteger</span> age;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>之后，创建一个用于操作数据库的类，所有的关于数据库的操作都封装在里面<br>命名为DBHelper,继承自NSObject</p>
+<p>首先，在存储数据之前，我们需要先判断是否有相应的数据库表，如果没有则创建一个数据库表，如果有，那么直接存储数据</p>
+<p>所以，先进行建表操作</p>
+<p>定义一些静态常量</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> dbName = <span class="string">@&quot;app.db&quot;</span>;<span class="comment">//数据库名称</span></span><br><span class="line"><span class="keyword">static</span> FMDatabase *db;<span class="comment">//先不使用FMDataBaseQueue，直接使用FMDataBase</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kTableName = <span class="string">@&quot;Student&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kColumnID = <span class="string">@&quot;id&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kColumnName = <span class="string">@&quot;name&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kColumnCollege = <span class="string">@&quot;college&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kColumnUniversity = <span class="string">@&quot;university&quot;</span>;</span><br><span class="line"><span class="keyword">static</span> <span class="built_in">NSString</span> * <span class="keyword">const</span> kColumnAge = <span class="string">@&quot;age&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>创建文件我们使用的第三方框架FCFileManager，数据库使用的FMDB，记得使用cocoapods引入</p>
+<p>之后，实现最初的建表操作，在DBHelper中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数据库路径</span></span><br><span class="line">+ (<span class="built_in">NSString</span> *)dbFilePath &#123;</span><br><span class="line">    <span class="keyword">return</span> [FCFileManager pathForDocumentsDirectoryWithPath:dbName];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)initialize &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;数据库的存储路径为:%@&quot;</span>,[<span class="keyword">self</span> dbFilePath]);</span><br><span class="line">    db = [FMDatabase databaseWithPath:[<span class="keyword">self</span> dbFilePath]];</span><br><span class="line">    <span class="keyword">if</span> (![db open]) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;数据库无法开启&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//创建表</span></span><br><span class="line">    [<span class="keyword">self</span> createTable:db];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在数据库中建表</span></span><br><span class="line">+ (<span class="keyword">void</span>)createTable:(FMDatabase *)db &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *createSql = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;CREATE TABLE IF NOT EXISTS %@ (&quot;</span></span><br><span class="line">                           <span class="string">&quot;%@ TEXT,&quot;</span></span><br><span class="line">                           <span class="string">&quot;%@ TEXT,&quot;</span></span><br><span class="line">                           <span class="string">&quot;%@ TEXT,&quot;</span></span><br><span class="line">                           <span class="string">&quot;%@ TEXT,&quot;</span></span><br><span class="line">                           <span class="string">&quot;%@ INTEGER)&quot;</span>,</span><br><span class="line">                           kTableName,</span><br><span class="line">                           kColumnID,</span><br><span class="line">                           kColumnName,</span><br><span class="line">                           kColumnCollege,</span><br><span class="line">                           kColumnUniversity,</span><br><span class="line">                           kColumnAge</span><br><span class="line">                           ];</span><br><span class="line">    <span class="built_in">BOOL</span> success = [db executeUpdate:createSql];</span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;创建表成功&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;创建表失败&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>之后，实现相应的数据库操作的方法<br>这里实现了比较简单的几种操作<br>1.获取数据库中所有人的名字<br>2.删除数据操作<br>3.存储单条数据<br>4.存储多条数据</p>
+</blockquote>
+<p>在DB.helper.h中声明方法</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取所有的名字</span></span><br><span class="line">+ (id)getAllName;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除数据</span></span><br><span class="line">+ (BOOL)<span class="attr">delete:</span>(Student *)student;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将数据存储在FMDataBase中</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="attr">saveObject:</span>(Student *)student;</span><br><span class="line"></span><br><span class="line"><span class="comment">//存储多条数据进入表中</span></span><br><span class="line">+ (<span class="keyword">void</span>)<span class="attr">saveObjects:</span>(NSArray *)array;</span><br></pre></td></tr></table></figure>
+
+<p>具体的FMDB的操作建议去阅读作者在github上的说明</p>
+<p>获取所有人的名字</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">````+ (<span class="keyword">id</span>)getAllName &#123;</span><br><span class="line">    <span class="built_in">NSString</span> *searchSql = <span class="literal">nil</span>;</span><br><span class="line">    FMResultSet *set = <span class="literal">nil</span>;</span><br><span class="line">    searchSql = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;SELECT * FROM %@&quot;</span>,kTableName];</span><br><span class="line">    set = [db executeQuery:searchSql];</span><br><span class="line">    <span class="comment">//执行sql语句，在FMDB中，除了查询语句使用executQuery外，其余的增删改查都使用executeUpdate来实现。</span></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (set.next) &#123;</span><br><span class="line">        i++;</span><br><span class="line">        <span class="built_in">NSString</span> *name = [set stringForColumn:<span class="string">@&quot;name&quot;</span>];</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;第%d个名字为:%@&quot;</span>,i,name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> @[];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>删除某个对象</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">BOOL</span>)delete:(Student *)student &#123;</span><br><span class="line">    <span class="built_in">BOOL</span> success = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSString</span> *deleteSql = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;DELETE FROM %@ WHERE %@ = ?&quot;</span>,kTableName,kColumnID];</span><br><span class="line">    <span class="built_in">BOOL</span> isCan = [db executeUpdate:deleteSql,student.id];</span><br><span class="line">    <span class="keyword">if</span> (!isCan) &#123;</span><br><span class="line">        success = <span class="literal">NO</span>;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;删除失败&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;删除成功&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> success;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>存储单个对象：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)saveObject:(Student *)student &#123;</span><br><span class="line">    <span class="comment">//如果原本已经存在了相同的，则应该将其删除</span></span><br><span class="line">    [<span class="keyword">self</span> delete:student];</span><br><span class="line">    <span class="built_in">NSString</span> *insertSql = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;INSERT INTO %@(%@,%@,%@,%@,%@) VALUES(?,?,?,?,?)&quot;</span>,kTableName,kColumnID,kColumnName,kColumnCollege,kColumnUniversity,kColumnAge];</span><br><span class="line">    <span class="built_in">BOOL</span> success = [db executeUpdate:insertSql,student.id,student.name,student.college,student.university,@(student.age)];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;插入数据成功&quot;</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;插入数据失败&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>存储多个对象</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)saveObjects:(NSArray *)<span class="keyword">array</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">array</span>.count &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        NSLog(@<span class="string">&quot;保存的数据不能为空&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="keyword">array</span>.count; i++) &#123;</span><br><span class="line">        Student *student = (Student *)[<span class="keyword">array</span> objectAtIndex:i];</span><br><span class="line">        <span class="keyword">if</span> (student) &#123;</span><br><span class="line">            [<span class="built_in">self</span> saveObject:student];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后，在FMDBViewController中初始化数据，添加相应的按钮和点击事件即可<br>在FMDBViewContrller.h文件中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *dbSaveButton;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIButton</span> *dbReadButton;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSMutableArray</span> *array;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) Student *student;</span><br></pre></td></tr></table></figure>
+<p>在FMDBViewController.m文件中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;FMDB存储数据&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.dbSaveButton];</span><br><span class="line">    [<span class="keyword">self</span>.dbSaveButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.centerY.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">30</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.dbReadButton];</span><br><span class="line">    [<span class="keyword">self</span>.dbReadButton mas_makeConstraints:^(MASConstraintMaker *make) &#123;</span><br><span class="line">        make.centerX.equalTo(<span class="keyword">self</span>.view);</span><br><span class="line">        make.top.equalTo(<span class="keyword">self</span>.dbSaveButton.mas_bottom).offset(<span class="number">20</span>);</span><br><span class="line">        make.width.greaterThanOrEqualTo(@<span class="number">0</span>);</span><br><span class="line">        make.height.equalTo(@<span class="number">30</span>);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//初始化数据</span></span><br><span class="line">    [<span class="keyword">self</span> initStudent];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)initStudent &#123;</span><br><span class="line">    <span class="keyword">self</span>.array = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    </span><br><span class="line">    Student *student1 = [[Student alloc] init];</span><br><span class="line">    student1.id = <span class="string">@&quot;1234567&quot;</span>;</span><br><span class="line">    student1.name = <span class="string">@&quot;落叶兮兮&quot;</span>;</span><br><span class="line">    student1.college = <span class="string">@&quot;学院1&quot;</span>;</span><br><span class="line">    student1.university = <span class="string">@&quot;大学1&quot;</span>;</span><br><span class="line">    student1.age = <span class="number">23</span>;</span><br><span class="line">    [<span class="keyword">self</span>.array addObject:student1];</span><br><span class="line">    </span><br><span class="line">    Student *student2 = [[Student alloc] init];</span><br><span class="line">    student2.id = <span class="string">@&quot;1245467767&quot;</span>;</span><br><span class="line">    student2.name = <span class="string">@&quot;雪花飞舞&quot;</span>;</span><br><span class="line">    student2.college = <span class="string">@&quot;学院1&quot;</span>;</span><br><span class="line">    student2.university = <span class="string">@&quot;大学2&quot;</span>;</span><br><span class="line">    student2.age = <span class="number">23</span>;</span><br><span class="line">    [<span class="keyword">self</span>.array addObject:student2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)dbSaveButton &#123;</span><br><span class="line">    <span class="keyword">if</span> (_dbSaveButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _dbSaveButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _dbSaveButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">    _dbSaveButton.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    [_dbSaveButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_dbSaveButton setTitle:<span class="string">@&quot;FMDataBase存储数据&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_dbSaveButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(fmDataBaseSaveData) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _dbSaveButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIButton</span> *)dbReadButton &#123;</span><br><span class="line">    <span class="keyword">if</span> (_dbReadButton) &#123;</span><br><span class="line">        <span class="keyword">return</span> _dbReadButton;</span><br><span class="line">    &#125;</span><br><span class="line">    _dbReadButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectZero</span>];</span><br><span class="line">    _dbReadButton.titleLabel.font = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18</span>];</span><br><span class="line">    [_dbReadButton setTitleColor:[<span class="built_in">UIColor</span> blackColor] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_dbReadButton setTitle:<span class="string">@&quot;FMDataBase读取数据&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [_dbReadButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(fmDataBaseReadData) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">    <span class="keyword">return</span> _dbReadButton;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fmDataBaseSaveData &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;FMDB存储数据&quot;</span>);</span><br><span class="line">    [DBHelper saveObjects:<span class="keyword">self</span>.array];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fmDataBaseReadData &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;FMDB读取数据&quot;</span>);</span><br><span class="line">    [DBHelper getAllName];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>运行后就可以在文件app.db中看到我们插入的数据</p>
+<p>#总结<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/-saveData.git">Demo地址</a><br>对应的实现文件如下：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-3558497bb7eced46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="对应的实现文件"></p>
+<p>存储成功后的效果图：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-23fe40a3964b3f1b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据库结构"><br><img src="https://upload-images.jianshu.io/upload_images/18811075-ee4e614c1065a600.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="对应的数据"><br>(存储的文件是app.db,是一个数据库文件，mac上我是使用DB Browser Fot SQLite进行查看的，非常好用的一个免费软件)</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9ANSKeyArchive%E5%BD%92%E6%A1%A3%E8%A7%A3%E6%A1%A3%E7%9A%84%E5%AE%9E%E7%8E%B0/" rel="next" title="ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现">
+                <i class="fa fa-chevron-left"></i> ios开发中数据持久化总结（三）:NSKeyArchive归档解档的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/19/pod-install%E5%87%BA%E9%94%99%E7%9A%84%E7%B2%97%E6%9A%B4%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" rel="prev" title="pod install出错的解决办法">
+                pod install出错的解决办法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/luoyexixi.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落叶兮兮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '9DPBhvJGT7M2Iv44IjXtGI36-gzGzoHsz',
+        appKey: 'oTlAxx65Hk7vT8sUX0Ehtwqa',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

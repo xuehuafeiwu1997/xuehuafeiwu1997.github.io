@@ -42,6 +42,29 @@
   </entry>
   
   <entry>
+    <title>搭建博客遇到无法加载landScape的错误</title>
+    <link href="http://example.com/2021/02/20/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0Plugin-load-failed--%s-hexo-theme-landscape%E9%94%99%E8%AF%AF/"/>
+    <id>http://example.com/2021/02/20/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0Plugin-load-failed--%s-hexo-theme-landscape%E9%94%99%E8%AF%AF/</id>
+    <published>2021-02-20T03:10:16.000Z</published>
+    <updated>2021-02-20T07:48:09.183Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;今天尝试使用Hexoh+github搭建一个属于自己的个人博客，全部流程按照教程走，使用默认主题landScape没有出现任何问题，但是一旦更换主题，就会出现资源无法加载的错误：&lt;br&gt;Plugin load failed: %s</summary>
+        
+      
+    
+    
+    
+    <category term="hexo+github个人博客" scheme="http://example.com/categories/hexo-github%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>iphone连接mac充电时为什么时断时续</title>
     <link href="http://example.com/2021/02/20/iphone%E8%BF%9E%E6%8E%A5mac%E5%85%85%E7%94%B5%E6%97%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%B6%E6%96%AD%E6%97%B6%E7%BB%AD/"/>
     <id>http://example.com/2021/02/20/iphone%E8%BF%9E%E6%8E%A5mac%E5%85%85%E7%94%B5%E6%97%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%B6%E6%96%AD%E6%97%B6%E7%BB%AD/</id>
@@ -462,28 +485,6 @@
         
         
     <summary type="html">&lt;p&gt;最近开始研究iOS14画中画功能的实现，最终分别通过使用AVPlayerViewController构建播放器和AVPlayerLayer构建播放器，分别实现相应的画中画的功能&lt;br&gt;实现的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>自定义Flowlayout探究</title>
-    <link href="http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/"/>
-    <id>http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/</id>
-    <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2020-12-16T03:02:06.786Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。&lt;/p&gt;
-&lt;p&gt;项目demo地址为：&lt;br&gt;&lt;a</summary>
         
       
     

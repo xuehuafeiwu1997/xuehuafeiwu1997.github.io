@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-19T02:54:59.751Z</updated>
+  <updated>2021-02-20T07:45:46.626Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,80 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo中涉及简书的图片，显示403</title>
+    <link href="http://example.com/2021/02/20/hexo%E4%B8%AD%E6%B6%89%E5%8F%8A%E7%AE%80%E4%B9%A6%E7%9A%84%E5%9B%BE%E7%89%87%EF%BC%8C%E6%98%BE%E7%A4%BA403/"/>
+    <id>http://example.com/2021/02/20/hexo%E4%B8%AD%E6%B6%89%E5%8F%8A%E7%AE%80%E4%B9%A6%E7%9A%84%E5%9B%BE%E7%89%87%EF%BC%8C%E6%98%BE%E7%A4%BA403/</id>
+    <published>2021-02-20T03:11:16.000Z</published>
+    <updated>2021-02-20T07:45:46.626Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近，使用hexo+github，将自己的个人博客搭建完成，接下来就是上传以前在简书写过的文章&lt;/p&gt;
+&lt;p&gt;通过简书下载原本写的所有的markdown文章，注意，一天只能下载一次&lt;/p&gt;
+&lt;p&gt;在设置—–&amp;gt;账号管理中，有下载所有文章的按钮&lt;br&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="hexo+github个人博客" scheme="http://example.com/categories/hexo-github%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iphone连接mac充电时为什么时断时续</title>
+    <link href="http://example.com/2021/02/20/iphone%E8%BF%9E%E6%8E%A5mac%E5%85%85%E7%94%B5%E6%97%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%B6%E6%96%AD%E6%97%B6%E7%BB%AD/"/>
+    <id>http://example.com/2021/02/20/iphone%E8%BF%9E%E6%8E%A5mac%E5%85%85%E7%94%B5%E6%97%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E6%97%B6%E6%96%AD%E6%97%B6%E7%BB%AD/</id>
+    <published>2021-02-20T03:09:16.000Z</published>
+    <updated>2021-02-20T07:42:45.304Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这种情况下，打开终端，在终端中输入以下命令&lt;/p&gt;
+&lt;figure class=&quot;highlight nginx&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="xcode问题" scheme="http://example.com/categories/xcode%E9%97%AE%E9%A2%98/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>socket通信原理</title>
+    <link href="http://example.com/2021/02/19/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/"/>
+    <id>http://example.com/2021/02/19/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/</id>
+    <published>2021-02-19T03:15:16.000Z</published>
+    <updated>2021-02-19T03:05:41.096Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现&lt;/p&gt;
+&lt;p&gt;这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket&lt;/p&gt;
+&lt;p&gt;因为需要有服务器充</summary>
+        
+      
+    
+    
+    
+    <category term="socket通信" scheme="http://example.com/categories/socket%E9%80%9A%E4%BF%A1/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>iphone8升级iOS14.3,xcode运行时卡在初始界面</title>
@@ -397,29 +471,6 @@
   </entry>
   
   <entry>
-    <title>socket通信原理</title>
-    <link href="http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/"/>
-    <id>http://example.com/2020/12/14/iOS%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E7%9A%84socket%E9%80%9A%E4%BF%A1/</id>
-    <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2021-01-08T11:12:35.304Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近在学习socket通信原理，写篇文章将其记录一下,tcp和udp的传值的实现&lt;/p&gt;
-&lt;p&gt;这次是实现在客户端发送数据，分别使用udp和tcp传输数据，之后服务器上显示客户端传输的数据，使用的第三方框架是CocoaAsyncSocket&lt;/p&gt;
-&lt;p&gt;因为需要有服务器充</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
     <title>自定义Flowlayout探究</title>
     <link href="http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/"/>
     <id>http://example.com/2020/12/14/UICollectionViewFlowLayout%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A2%E7%A9%B6/</id>
@@ -433,51 +484,6 @@
         
     <summary type="html">&lt;p&gt;ios开发中，UICollectionView是一个极其重要的组件，我们通过自定义UICollectionViewFlowLayout可以实现一些极其复杂的布局。&lt;/p&gt;
 &lt;p&gt;项目demo地址为：&lt;br&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>生成podfile文件</title>
-    <link href="http://example.com/2020/12/14/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E7%94%9F%E6%88%90podfile%E6%96%87%E4%BB%B6/"/>
-    <id>http://example.com/2020/12/14/%E7%BB%88%E7%AB%AF%E5%91%BD%E4%BB%A4%E7%94%9F%E6%88%90podfile%E6%96%87%E4%BB%B6/</id>
-    <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2021-01-08T11:21:16.635Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;在iOS开发中，使用终端命令生成podfile文件&lt;/p&gt;
-&lt;p&gt;在cd进入项目的文件夹后，可以使用如下两种方法&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.touch</summary>
-        
-      
-    
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="http://example.com/2020/12/11/hello-world/"/>
-    <id>http://example.com/2020/12/11/hello-world/</id>
-    <published>2020-12-11T09:07:46.785Z</published>
-    <updated>2020-12-14T06:54:43.062Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
         
       
     

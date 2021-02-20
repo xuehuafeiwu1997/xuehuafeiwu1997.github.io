@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-20T07:45:46.626Z</updated>
+  <updated>2021-02-20T07:50:55.826Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,79 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo中涉及简书的图片，显示403</title>
+    <link href="http://example.com/2021/02/20/Objective-c%E4%B8%AD%E7%9A%84%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E6%80%BB%E7%BB%93/"/>
+    <id>http://example.com/2021/02/20/Objective-c%E4%B8%AD%E7%9A%84%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E6%80%BB%E7%BB%93/</id>
+    <published>2021-02-20T03:12:30.000Z</published>
+    <updated>2021-02-20T07:50:55.826Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近看到“不使用临时变量交换两个变量的值”这个题目&lt;br&gt;我们最容易想到的做法就是使用相加相减来实现&lt;/p&gt;
+&lt;figure class=&quot;highlight gml&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span</summary>
+        
+      
+    
+    
+    
+    <category term="编程题目" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9B%AE/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hexo中涉及简书的图片，显示403</title>
+    <link href="http://example.com/2021/02/20/ios%E5%BC%80%E5%8F%91%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AAUIView%E6%9C%80%E8%BF%91%E7%9A%84%E5%85%AC%E5%85%B1%E7%88%B6%E7%B1%BB/"/>
+    <id>http://example.com/2021/02/20/ios%E5%BC%80%E5%8F%91%E8%AE%A1%E7%AE%97%E4%B8%A4%E4%B8%AAUIView%E6%9C%80%E8%BF%91%E7%9A%84%E5%85%AC%E5%85%B1%E7%88%B6%E7%B1%BB/</id>
+    <published>2021-02-20T03:12:16.000Z</published>
+    <updated>2021-02-20T07:50:35.777Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近，看到这个题目：计算两个UIView最近的公共父类&lt;br&gt;首先创建4个UIView，分别命名为AView，BView，CView，DView&lt;br&gt;其中DView继承于BView，BView继承于AView，CView继承与AView&lt;br&gt;也即&lt;/p&gt;
+&lt;blockq</summary>
+        
+      
+    
+    
+    
+    <category term="编程题目" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9B%AE/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>hexo中涉及简书的图片，显示403</title>
+    <link href="http://example.com/2021/02/20/iOS%E5%BC%80%E5%8F%91%E8%AE%A1%E7%AE%97100%E7%9A%84%E9%98%B6%E4%B9%98/"/>
+    <id>http://example.com/2021/02/20/iOS%E5%BC%80%E5%8F%91%E8%AE%A1%E7%AE%97100%E7%9A%84%E9%98%B6%E4%B9%98/</id>
+    <published>2021-02-20T03:12:16.000Z</published>
+    <updated>2021-02-20T07:50:15.035Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;最近看到一些大公司的面试题：计算100的阶乘&lt;br&gt;开始考虑怎么实现&lt;/p&gt;
+&lt;p&gt;最初的想法是使用do while循环实现，相应的代码如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight nim&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="编程题目" scheme="http://example.com/categories/%E7%BC%96%E7%A8%8B%E9%A2%98%E7%9B%AE/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>hexo中涉及简书的图片，显示403</title>
@@ -421,74 +494,6 @@
     
     
     <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS动画效果二：UIViewAnimation实现动画</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%E4%BA%8C%EF%BC%9AUIView-Animation%E5%AE%9E%E7%8E%B0%E5%8A%A8%E7%94%BB/</id>
-    <published>2021-02-19T02:31:16.000Z</published>
-    <updated>2021-02-19T02:39:24.211Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这是我们实现动画效果最简单的方法了，可以实现简单的平移、缩放和旋转功能，平常我们基本上对于简单的平移使用该方法来完成&lt;/p&gt;
-&lt;p&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS开发中动画效果的探究（一）</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E7%9A%84%E6%8E%A2%E7%A9%B6%EF%BC%88%E4%B8%80%EF%BC%89/</id>
-    <published>2021-02-19T02:30:16.000Z</published>
-    <updated>2021-02-19T02:34:23.336Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;一直都想探究一下iOS开发中动画的实现，最近刚好有时间，对iOS动画实现的几种方法进行总结了一下&lt;br&gt;1.使用UIView</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS14画中画探究</title>
-    <link href="http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/"/>
-    <id>http://example.com/2020/12/14/%E7%94%BB%E4%B8%AD%E7%94%BB%E5%8A%9F%E8%83%BD%E6%8E%A2%E7%A9%B6/</id>
-    <published>2020-12-14T02:40:15.000Z</published>
-    <updated>2020-12-16T07:46:22.495Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;最近开始研究iOS14画中画功能的实现，最终分别通过使用AVPlayerViewController构建播放器和AVPlayerLayer构建播放器，分别实现相应的画中画的功能&lt;br&gt;实现的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
     
     
   </entry>

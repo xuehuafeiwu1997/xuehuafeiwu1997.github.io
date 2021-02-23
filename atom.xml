@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2021-02-20T07:50:55.826Z</updated>
+  <updated>2021-02-23T03:14:13.439Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,170 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SDWebImage源码阅读（七）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%83%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%83%EF%BC%89/</id>
+    <published>2021-02-21T03:17:30.000Z</published>
+    <updated>2021-02-23T03:14:13.439Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;这篇文章主要是看SDWebImage中的SDWebImageCoderManage.h文件&lt;br&gt;在.h文件中，可以看到SDWebImageCoderManage遵守SDWebImageCoder协议&lt;br&gt;在SDWebImageCoder协议中，各个方法的作用如下所示：&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SDWebImage源码阅读（六）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%85%AD%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%85%AD%EF%BC%89/</id>
+    <published>2021-02-21T03:16:30.000Z</published>
+    <updated>2021-02-23T03:13:57.950Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在上一篇[SDWebImage源码阅读(五)]（jianshu.com/p/fec6c0b8ed1b）中介绍了SDImageCahe.h文件，包括SDImageCacheConfig文件的阅读，这次开始阅读SDImageCache.m文件中的代码，了解实现思路。&lt;/p&gt;
+&lt;</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SDWebImage源码阅读（五）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%94%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%94%EF%BC%89/</id>
+    <published>2021-02-21T03:15:30.000Z</published>
+    <updated>2021-02-23T03:13:40.543Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在上一篇中&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SDWebImage源码阅读（四）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%9B%9B%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%9B%9B%EF%BC%89/</id>
+    <published>2021-02-21T03:12:30.000Z</published>
+    <updated>2021-02-23T03:13:15.299Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;上一篇中主要写了SDWebImageDownloader.h中一些属性和方法的作用，相应的链接为&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SDWebImage源码阅读（三）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%89%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%89%EF%BC%89/</id>
+    <published>2021-02-21T03:11:30.000Z</published>
+    <updated>2021-02-23T03:12:58.570Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;##SDWebImageDownloader.h（异步下载专用和优化图像加载）&lt;br&gt;关于SDWebImageDownloaderOptions枚举的各个含义在上一篇中已经写过，链接为：&lt;br&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SDWebImage源码阅读（二）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%88%E4%BA%8C%EF%BC%89/</id>
+    <published>2021-02-21T03:10:30.000Z</published>
+    <updated>2021-02-23T03:14:17.802Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;在jianshu.com/p/077638fb6756中简要介绍了SDWebImageManage.h中定义的各个方法和属性的含义，这篇开始介绍相应的方法的具体实现。&lt;br&gt;首先，SDWebImageManager中使用的核心方法是&lt;/p&gt;
+&lt;figure</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SDWebImage源码阅读（一）</title>
+    <link href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%88%E4%B8%80%EF%BC%89/"/>
+    <id>http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%88%E4%B8%80%EF%BC%89/</id>
+    <published>2021-02-21T03:09:30.000Z</published>
+    <updated>2021-02-23T03:12:32.740Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;##SDWebImageManager&lt;/p&gt;
+&lt;p&gt;SDWebImageManager是UIImageView+WebCache类别后面的类。&lt;br&gt;*它绑定了异步下载器(SDWebImageDownloader)和图像缓存存储(SDImageCache)。可以直接使用这</summary>
+        
+      
+    
+    
+    
+    <category term="SDWebImage源码阅读" scheme="http://example.com/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>hexo中涉及简书的图片，显示403</title>
@@ -329,171 +493,6 @@
     
     
     <category term="iOS数据持久化总结" scheme="http://example.com/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ios开发中数据持久化总结（一）</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%BC%80%E5%8F%91%E4%B8%AD%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/</id>
-    <published>2021-02-19T03:00:16.000Z</published>
-    <updated>2021-02-19T02:40:55.923Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;ios开发中，常用的几种数据持久化的方式，主要有以下几种&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;1.使用NSUserDefaults存储数据&lt;br&gt;2.使用Archive对象归类&lt;br&gt;3.使用SQlite数据库存储数据(尝试用FMDataBase第三方库)&lt;/p&gt;
-&lt;/</summary>
-        
-      
-    
-    
-    
-    <category term="iOS数据持久化总结" scheme="http://example.com/categories/iOS%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96%E6%80%BB%E7%BB%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS动画效果八-实现类似系统的侧滑返回效果</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AB-%E5%AE%9E%E7%8E%B0%E7%B1%BB%E4%BC%BC%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%B5%8B%E6%BB%91%E8%BF%94%E5%9B%9E%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T02:37:16.000Z</published>
-    <updated>2021-02-19T02:39:13.789Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这篇文章主要介绍怎样实现类似系统的测滑返回效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>iOS动画效果七：实现自定义present转场动画效果</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%83%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89present%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T02:36:16.000Z</published>
-    <updated>2021-02-19T02:39:06.830Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这篇文章主要介绍如何实现自定义的present转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ios动画效果六:实现自定义的push动画</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%85%AD%EF%BC%9A%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84push%E8%BD%AC%E5%9C%BA%E5%8A%A8%E7%94%BB/</id>
-    <published>2021-02-19T02:35:16.000Z</published>
-    <updated>2021-02-19T02:38:36.073Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;这篇文章主要讲一下push的自定义转场动画&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ios动画效果五：CABasicAnimation实现定点旋转的效果</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T02:34:16.000Z</published>
-    <updated>2021-02-19T02:38:54.510Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;前面提到过CALayer的anchorPoint和position对CABasicAnimation的动画过程会有影响，这篇文章主要讲的是：通过设置anchorPoint和position来实现CABAsicAnimation绕右下角旋转的效果&lt;br&gt;最终的效果图为：&lt;br</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ios动画效果四：使用pop框架实现弹簧效果</title>
-    <link href="http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/"/>
-    <id>http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/</id>
-    <published>2021-02-19T02:33:16.000Z</published>
-    <updated>2021-02-19T02:38:45.358Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;pop框架是Google推出的用于处理iOS动画的一个特别好用的框架&lt;br&gt;如果对这个框架没有了解的，可与去看一下官方提供的资料&lt;/p&gt;
-&lt;p&gt;这次我主要使用pop框架实现一个简单的弹簧效果&lt;br&gt;对应的demo为&lt;br&gt;&lt;a</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>ios动画效果三：CABasicAnimation实现平移、旋转和放大</title>
-    <link href="http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/"/>
-    <id>http://example.com/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/</id>
-    <published>2021-02-19T02:32:16.000Z</published>
-    <updated>2021-02-19T02:39:30.697Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;使用CABAsicAnimation来实现动画的放缩和旋转是比较常用的，这篇主要介绍CABasicAnimation实现简单的动画效果&lt;br&gt;最终的效果图为：&lt;br&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="iOS开发动画效果探究" scheme="http://example.com/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/"/>
     
     
   </entry>

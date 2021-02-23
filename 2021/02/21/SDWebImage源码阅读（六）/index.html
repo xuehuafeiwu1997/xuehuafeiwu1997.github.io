@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="落叶兮兮" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="在上一篇[SDWebImage源码阅读(五)]（jianshu.com&#x2F;p&#x2F;fec6c0b8ed1b）中介绍了SDImageCahe.h文件，包括SDImageCacheConfig文件的阅读，这次开始阅读SDImageCache.m文件中的代码，了解实现思路。 在最初的定义中，定义了开锁和解锁，这个代码值得学习以下 12#define LOCK(lock) dispatch_semaphore_">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDWebImage源码阅读（六）">
+<meta property="og:url" content="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%85%AD%EF%BC%89/index.html">
+<meta property="og:site_name" content="落叶兮兮">
+<meta property="og:description" content="在上一篇[SDWebImage源码阅读(五)]（jianshu.com&#x2F;p&#x2F;fec6c0b8ed1b）中介绍了SDImageCahe.h文件，包括SDImageCacheConfig文件的阅读，这次开始阅读SDImageCache.m文件中的代码，了解实现思路。 在最初的定义中，定义了开锁和解锁，这个代码值得学习以下 12#define LOCK(lock) dispatch_semaphore_">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-21T03:16:30.000Z">
+<meta property="article:modified_time" content="2021-02-23T03:13:57.950Z">
+<meta property="article:author" content="落叶兮兮">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/02/21/SDWebImage源码阅读（六）/"/>
+
+
+
+
+
+  <title>SDWebImage源码阅读（六） | 落叶兮兮</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?ae637f1ecc4bf55d349023fb041e8ec2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <meta name="referrer" content="no-referrer"/>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">落叶兮兮</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">会者定离，一期一祈。把与每个人的相遇都当作最后一次，遇见，就是上上签,很高兴遇到你</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%85%AD%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/luoyexixi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="落叶兮兮">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SDWebImage源码阅读（六）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-21T11:16:30+08:00">
+                2021-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">SDWebImage源码阅读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%85%AD%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E5%85%AD%EF%BC%89/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在上一篇[SDWebImage源码阅读(五)]（jianshu.com/p/fec6c0b8ed1b）中介绍了SDImageCahe.h文件，包括SDImageCacheConfig文件的阅读，这次开始阅读SDImageCache.m文件中的代码，了解实现思路。</p>
+<p>在最初的定义中，定义了开锁和解锁，这个代码值得学习以下</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define <span class="constructor">LOCK(<span class="params">lock</span>)</span> dispatch<span class="constructor">_semaphore_wait(<span class="params">lock</span>, DISPATCH_TIME_FOREVER)</span>;</span><br><span class="line">#define <span class="constructor">UNLOCK(<span class="params">lock</span>)</span> dispatch<span class="constructor">_semaphore_signal(<span class="params">lock</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>之后定义了一个类SDMemoryCache,继承自NSCache，<br>在初始化方法中，在缓存中，可能存在内存不足的情况，所以在init中注册了通知</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-attr">[[NSNotificationCenter defaultCenter]</span> <span class="selector-tag">addObserver</span><span class="selector-pseudo">:self</span></span><br><span class="line">                                                 <span class="selector-tag">selector</span>:@<span class="selector-tag">selector</span>(<span class="attribute">didReceiveMemoryWarning</span>:)</span><br><span class="line">                                                     <span class="selector-tag">name</span><span class="selector-pseudo">:UIApplicationDidReceiveMemoryWarningNotification</span></span><br><span class="line">                                                   <span class="selector-tag">object</span><span class="selector-pseudo">:nil</span>];</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (void)<span class="selector-tag">didReceiveMemoryWarning</span><span class="selector-pseudo">:(NSNotification</span> *)<span class="selector-tag">notification</span> &#123;</span><br><span class="line">   <span class="comment">//只删除缓存，但是保持弱缓存</span></span><br><span class="line">     <span class="selector-attr">[super removeAllObjects]</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另外，在objectForKey:(id)key中有获取内存的花费的代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)objectForKey:(<span class="keyword">id</span>)key &#123;</span><br><span class="line">    <span class="keyword">id</span> obj = [<span class="keyword">super</span> objectForKey:key];</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>.config.shouldUseWeakMemoryCache) &#123;</span><br><span class="line">        <span class="keyword">return</span> obj;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (key &amp;&amp; !obj) &#123;</span><br><span class="line">        <span class="comment">// Check weak cache</span></span><br><span class="line">        LOCK(<span class="keyword">self</span>.weakCacheLock);</span><br><span class="line">        obj = [<span class="keyword">self</span>.weakCache objectForKey:key];</span><br><span class="line">        UNLOCK(<span class="keyword">self</span>.weakCacheLock);</span><br><span class="line">        <span class="keyword">if</span> (obj) &#123;</span><br><span class="line">            <span class="comment">// Sync cache</span></span><br><span class="line">            <span class="built_in">NSUInteger</span> cost = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> ([obj isKindOfClass:[<span class="built_in">UIImage</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">                <span class="comment">//获取内存的花费</span></span><br><span class="line">                cost = [(<span class="built_in">UIImage</span> *)obj sd_memoryCost];</span><br><span class="line">            &#125;</span><br><span class="line">            [<span class="keyword">super</span> setObject:obj forKey:key cost:cost];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>点击跳转后，发现具体的计算内存花费的代码为：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FOUNDATION_STATIC_INLINE NSUInteger <span class="title">SDMemoryCacheCostForImage</span><span class="params">(UIImage *<span class="built_in">image</span>)</span> </span>&#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> SD_MAC</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">image</span>.<span class="built_in">size</span>.<span class="built_in">height</span> * <span class="built_in">image</span>.<span class="built_in">size</span>.<span class="built_in">width</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> SD_UIKIT || SD_WATCH</span></span><br><span class="line">    NSUInteger imageSize = <span class="built_in">image</span>.<span class="built_in">size</span>.<span class="built_in">height</span> * <span class="built_in">image</span>.<span class="built_in">size</span>.<span class="built_in">width</span> * <span class="built_in">image</span>.scale * <span class="built_in">image</span>.scale;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">image</span>.images ? (imageSize * <span class="built_in">image</span>.images.count) : imageSize;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来看SDImageCache.m中的代码<br>获取磁盘存储路径的代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)makeDiskCachePath:(<span class="keyword">nonnull</span> <span class="built_in">NSString</span>*)fullNamespace &#123;</span><br><span class="line">    <span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="keyword">return</span> [paths[<span class="number">0</span>] stringByAppendingPathComponent:fullNamespace];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后看到初始化的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nonnull</span> <span class="keyword">instancetype</span>)initWithNamespace:(<span class="keyword">nonnull</span> <span class="built_in">NSString</span> *)ns</span><br><span class="line">                       diskCacheDirectory:(<span class="keyword">nonnull</span> <span class="built_in">NSString</span> *)directory &#123;</span><br><span class="line"><span class="comment">//创建io串行队列（名字由自己命名）</span></span><br><span class="line">_ioQueue = dispatch_queue_create(<span class="string">&quot;com.hackemist.SDWebImageCache&quot;</span>, DISPATCH_QUEUE_SERIAL);</span><br><span class="line">...</span><br><span class="line"><span class="comment">//初始化磁盘缓存</span></span><br><span class="line"><span class="keyword">if</span> (directory != <span class="literal">nil</span>) &#123;</span><br><span class="line">            _diskCachePath = [directory stringByAppendingPathComponent:fullNamespace];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">NSString</span> *path = [<span class="keyword">self</span> makeDiskCachePath:ns];</span><br><span class="line">            _diskCachePath = path;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">dispatch_sync</span>(_ioQueue, ^&#123;</span><br><span class="line">            <span class="keyword">self</span>.fileManager = [<span class="built_in">NSFileManager</span> new];</span><br><span class="line">        &#125;);</span><br><span class="line">         <span class="comment">//app被杀死时发出通知</span></span><br><span class="line">        [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span></span><br><span class="line">                                                 selector:<span class="keyword">@selector</span>(deleteOldFiles)</span><br><span class="line">                                                     name:<span class="built_in">UIApplicationWillTerminateNotification</span></span><br><span class="line">                                                   object:<span class="literal">nil</span>];</span><br><span class="line">        <span class="comment">//app进入后台时发出通知</span></span><br><span class="line">        [[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span></span><br><span class="line">                                                 selector:<span class="keyword">@selector</span>(backgroundDeleteOldFiles)</span><br><span class="line">                                                     name:<span class="built_in">UIApplicationDidEnterBackgroundNotification</span></span><br><span class="line">                                                   object:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当app进入后台或者被杀死时，需要相应的执行方法@selector(backgroundDeleteOldFiles)和@selectors(deleteOldFiles)这两个方法。<br>最终这两个方法都是调用的下面的这个方法</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">void</span>)deleteOldFilesWithCompletionBlock:(<span class="literal">null</span>able SDWebImageNoParamsBlock)completionBlock &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>只不过在backgroundDeleteOldFiles中需要处理任务进入后台请求额外时间的处理，相应的处理代码如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)backgroundDeleteOldFiles &#123;</span><br><span class="line">    Class <span class="built_in">UIApplicationClass</span> = <span class="built_in">NSClassFromString</span>(<span class="string">@&quot;UIApplication&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">UIApplicationClass</span> || ![<span class="built_in">UIApplicationClass</span> respondsToSelector:<span class="keyword">@selector</span>(sharedApplication)]) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIApplication</span> *application = [<span class="built_in">UIApplication</span> performSelector:<span class="keyword">@selector</span>(sharedApplication)];</span><br><span class="line">    __block <span class="built_in">UIBackgroundTaskIdentifier</span> bgTask = [application beginBackgroundTaskWithExpirationHandler:^&#123;</span><br><span class="line">        <span class="comment">// Clean up any unfinished task business by marking where you</span></span><br><span class="line">        <span class="comment">// stopped or ending the task outright.</span></span><br><span class="line">        [application endBackgroundTask:bgTask];</span><br><span class="line">        bgTask = <span class="built_in">UIBackgroundTaskInvalid</span>;</span><br><span class="line">    &#125;];</span><br><span class="line"></span><br><span class="line">   <span class="comment">//启动长时间运行的任务并立即返回</span></span><br><span class="line">    [<span class="keyword">self</span> deleteOldFilesWithCompletionBlock:^&#123;</span><br><span class="line">        [application endBackgroundTask:bgTask];</span><br><span class="line">        bgTask = <span class="built_in">UIBackgroundTaskInvalid</span>;</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后，开始看- (void)deleteOldFilesWithCompletionBlock:(nullable SDWebImageNoParamsBlock)completionBlock这个方法中的相应的实现</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)deleteOldFilesWithCompletionBlock:(<span class="keyword">nullable</span> SDWebImageNoParamsBlock)completionBlock  &#123;</span><br><span class="line">   <span class="comment">//对于io操作队列，开启一个异步线程，来实现其他的一些东西</span></span><br><span class="line">    <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.ioQueue, ^&#123;</span><br><span class="line">        <span class="built_in">NSURL</span> *diskCacheURL = [<span class="built_in">NSURL</span> fileURLWithPath:<span class="keyword">self</span>.diskCachePath isDirectory:<span class="literal">YES</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Compute content date key to be used for tests</span></span><br><span class="line">        <span class="built_in">NSURLResourceKey</span> cacheContentDateKey = <span class="built_in">NSURLContentModificationDateKey</span>;</span><br><span class="line">        <span class="keyword">switch</span> (<span class="keyword">self</span>.config.diskCacheExpireType) &#123;</span><br><span class="line">            <span class="keyword">case</span> SDImageCacheConfigExpireTypeAccessDate:</span><br><span class="line">                cacheContentDateKey = <span class="built_in">NSURLContentAccessDateKey</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> SDImageCacheConfigExpireTypeModificationDate:</span><br><span class="line">                cacheContentDateKey = <span class="built_in">NSURLContentModificationDateKey</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *resourceKeys = @[<span class="built_in">NSURLIsDirectoryKey</span>, cacheContentDateKey, <span class="built_in">NSURLTotalFileAllocatedSizeKey</span>];</span><br><span class="line"></span><br><span class="line">       <span class="comment">//这个枚举器为缓存文件预取有用的属性。</span></span><br><span class="line">        <span class="built_in">NSDirectoryEnumerator</span> *fileEnumerator = [<span class="keyword">self</span>.fileManager enumeratorAtURL:diskCacheURL</span><br><span class="line">                                                   includingPropertiesForKeys:resourceKeys</span><br><span class="line">                                                                      options:<span class="built_in">NSDirectoryEnumerationSkipsHiddenFiles</span></span><br><span class="line">                                                                 errorHandler:<span class="literal">NULL</span>];</span><br><span class="line"></span><br><span class="line">       <span class="comment">//计算国过期的日期，假设self.config.maxCacheAge为7（今天是7月7号），那么得出来的expirationDate的大小为7月2号,删除过期文件只需要删除存储时间是在7月2号之前的就行</span></span><br><span class="line">        <span class="built_in">NSDate</span> *expirationDate = [<span class="built_in">NSDate</span> dateWithTimeIntervalSinceNow:-<span class="keyword">self</span>.config.maxCacheAge];</span><br><span class="line">        <span class="built_in">NSMutableDictionary</span>&lt;<span class="built_in">NSURL</span> *, <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="keyword">id</span>&gt; *&gt; *cacheFiles = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">        <span class="built_in">NSUInteger</span> currentCacheSize = <span class="number">0</span>;</span><br><span class="line">       <span class="comment">//1. 删除超过过期日期的文件。</span></span><br><span class="line">      <span class="comment">// 2.为基于大小的清除传递存储文件属性</span></span><br><span class="line">        <span class="built_in">NSMutableArray</span>&lt;<span class="built_in">NSURL</span> *&gt; *urlsToDelete = [[<span class="built_in">NSMutableArray</span> alloc] init];</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSURL</span> *fileURL <span class="keyword">in</span> fileEnumerator) &#123;</span><br><span class="line">            <span class="built_in">NSError</span> *error;</span><br><span class="line">            <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="keyword">id</span>&gt; *resourceValues = [fileURL resourceValuesForKeys:resourceKeys error:&amp;error];</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果当前扫描的是目录，就跳过</span></span><br><span class="line">            <span class="keyword">if</span> (error || !resourceValues || [resourceValues[<span class="built_in">NSURLIsDirectoryKey</span>] boolValue]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 移除在过期日期以前的文件</span></span><br><span class="line">            <span class="built_in">NSDate</span> *modifiedDate = resourceValues[cacheContentDateKey];</span><br><span class="line">            <span class="keyword">if</span> ([[modifiedDate laterDate:expirationDate] isEqualToDate:expirationDate]) &#123;</span><br><span class="line">                [urlsToDelete addObject:fileURL];</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">          <span class="comment">//计算当前已经使用的cache大小， - 并将对应file的属性存到cacheFiles中</span></span><br><span class="line">            <span class="built_in">NSNumber</span> *totalAllocatedSize = resourceValues[<span class="built_in">NSURLTotalFileAllocatedSizeKey</span>];</span><br><span class="line">            currentCacheSize += totalAllocatedSize.unsignedIntegerValue;</span><br><span class="line">            cacheFiles[fileURL] = resourceValues;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">       <span class="comment">//根据需要移除的文件的url删除文件</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSURL</span> *fileURL <span class="keyword">in</span> urlsToDelete) &#123;</span><br><span class="line">            [<span class="keyword">self</span>.fileManager removeItemAtURL:fileURL error:<span class="literal">nil</span>];</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">//如果我们当前cache的大小已经超过了允许配置的缓存大小，那就删除已经缓存的文件。</span></span><br><span class="line">        <span class="comment">// 删除策略就是，首先删除修改时间更早的缓存文件</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.config.maxCacheSize &gt; <span class="number">0</span> &amp;&amp; currentCacheSize &gt; <span class="keyword">self</span>.config.maxCacheSize) &#123;</span><br><span class="line">          <span class="comment">//直接将当前cache大小降到允许最大的cache大小的一半</span></span><br><span class="line">            <span class="keyword">const</span> <span class="built_in">NSUInteger</span> desiredCacheSize = <span class="keyword">self</span>.config.maxCacheSize / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 根据最后修改时间或最后访问时间(最老的先访问)对剩余的缓存文件进行排序。</span></span><br><span class="line">            <span class="built_in">NSArray</span>&lt;<span class="built_in">NSURL</span> *&gt; *sortedFiles = [cacheFiles keysSortedByValueWithOptions:<span class="built_in">NSSortConcurrent</span></span><br><span class="line">                                                                     usingComparator:^<span class="built_in">NSComparisonResult</span>(<span class="keyword">id</span> obj1, <span class="keyword">id</span> obj2) &#123;</span><br><span class="line">                                                                         <span class="keyword">return</span> [obj1[cacheContentDateKey] compare:obj2[cacheContentDateKey]];</span><br><span class="line">                                                                     &#125;];</span><br><span class="line"></span><br><span class="line">         <span class="comment">//每次删除file后，就计算此时的cache的大小，直到达到我们预期的缓存</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">NSURL</span> *fileURL <span class="keyword">in</span> sortedFiles) &#123;</span><br><span class="line">                <span class="keyword">if</span> ([<span class="keyword">self</span>.fileManager removeItemAtURL:fileURL error:<span class="literal">nil</span>]) &#123;</span><br><span class="line">                    <span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSString</span> *, <span class="keyword">id</span>&gt; *resourceValues = cacheFiles[fileURL];</span><br><span class="line">                    <span class="built_in">NSNumber</span> *totalAllocatedSize = resourceValues[<span class="built_in">NSURLTotalFileAllocatedSizeKey</span>];</span><br><span class="line">                    currentCacheSize -= totalAllocatedSize.unsignedIntegerValue;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (currentCacheSize &lt; desiredCacheSize) &#123;</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (completionBlock) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                completionBlock();</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面介绍的是当app被杀死或者app进入后台时的处理逻辑，下面继续原本的代码看，看到有一个方法<br>//根据key值获取缓存的fileName，使用了MD5转换</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)cachedFileNameForKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key &#123;</span><br><span class="line"> <span class="keyword">const</span> <span class="keyword">char</span> *str = key.UTF8String;</span><br><span class="line">    <span class="keyword">if</span> (str == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        str = <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> r[CC_MD5_DIGEST_LENGTH];</span><br><span class="line">    CC_MD5(str, (CC_LONG)strlen(str), r);</span><br><span class="line">    <span class="built_in">NSURL</span> *keyURL = [<span class="built_in">NSURL</span> URLWithString:key];</span><br><span class="line">    <span class="built_in">NSString</span> *ext = keyURL ? keyURL.pathExtension : key.pathExtension;</span><br><span class="line">    <span class="comment">// File system has file name length limit, we need to check if ext is too long, we don&#x27;t add it to the filename</span></span><br><span class="line">    <span class="keyword">if</span> (ext.length &gt; SD_MAX_FILE_EXTENSION_LENGTH) &#123;</span><br><span class="line">        ext = <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSString</span> *filename = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%@&quot;</span>,</span><br><span class="line">                          r[<span class="number">0</span>], r[<span class="number">1</span>], r[<span class="number">2</span>], r[<span class="number">3</span>], r[<span class="number">4</span>], r[<span class="number">5</span>], r[<span class="number">6</span>], r[<span class="number">7</span>], r[<span class="number">8</span>], r[<span class="number">9</span>], r[<span class="number">10</span>],</span><br><span class="line">                          r[<span class="number">11</span>], r[<span class="number">12</span>], r[<span class="number">13</span>], r[<span class="number">14</span>], r[<span class="number">15</span>], ext.length == <span class="number">0</span> ? <span class="string">@&quot;&quot;</span> : [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;.%@&quot;</span>, ext]];</span><br><span class="line">    <span class="keyword">return</span> filename;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后，获取缓存路径的方法为:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)makeDiskCachePath:(<span class="keyword">nonnull</span> <span class="built_in">NSString</span>*)fullNamespace &#123;</span><br><span class="line">    <span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *paths = <span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSCachesDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>);</span><br><span class="line">    <span class="keyword">return</span> [paths[<span class="number">0</span>] stringByAppendingPathComponent:fullNamespace];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来就是一连串的存储图片数据的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)storeImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image</span><br><span class="line">            forKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key</span><br><span class="line">        completion:(<span class="keyword">nullable</span> SDWebImageNoParamsBlock)completionBlock &#123;</span><br><span class="line">    [<span class="keyword">self</span> storeImage:image imageData:<span class="literal">nil</span> forKey:key toDisk:<span class="literal">YES</span> completion:completionBlock];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)storeImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image</span><br><span class="line">            forKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key</span><br><span class="line">            toDisk:(<span class="built_in">BOOL</span>)toDisk</span><br><span class="line">        completion:(<span class="keyword">nullable</span> SDWebImageNoParamsBlock)completionBlock &#123;</span><br><span class="line">    [<span class="keyword">self</span> storeImage:image imageData:<span class="literal">nil</span> forKey:key toDisk:toDisk completion:completionBlock];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)storeImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image</span><br><span class="line">         imageData:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)imageData</span><br><span class="line">            forKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key</span><br><span class="line">            toDisk:(<span class="built_in">BOOL</span>)toDisk</span><br><span class="line">        completion:(<span class="keyword">nullable</span> SDWebImageNoParamsBlock)completionBlock &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最终都是调用的第三个方法，</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)storeImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image</span><br><span class="line">         imageData:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)imageData</span><br><span class="line">            forKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key</span><br><span class="line">            toDisk:(<span class="built_in">BOOL</span>)toDisk</span><br><span class="line">        completion:(<span class="keyword">nullable</span> SDWebImageNoParamsBlock)completionBlock  &#123;</span><br><span class="line">    <span class="keyword">if</span> (!image || !key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (completionBlock) &#123;</span><br><span class="line">            completionBlock();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果允许存储到内存中</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.config.shouldCacheImagesInMemory) &#123;</span><br><span class="line">        <span class="built_in">NSUInteger</span> cost = image.sd_memoryCost;</span><br><span class="line">        <span class="comment">//将图片以及对应的花费存储到内存NSCache中</span></span><br><span class="line">        [<span class="keyword">self</span>.memCache setObject:image forKey:key cost:cost];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"><span class="comment">//如果允许存储到磁盘中</span></span><br><span class="line">    <span class="keyword">if</span> (toDisk) &#123;</span><br><span class="line">        <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.ioQueue, ^&#123;</span><br><span class="line">            <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">                <span class="built_in">NSData</span> *data = imageData;</span><br><span class="line">                <span class="keyword">if</span> (!data &amp;&amp; image) &#123;</span><br><span class="line">                    <span class="comment">//如果我们没有任何数据来检测图像格式，检查它是否包含alpha通道来使用PNG或JPEG格式</span></span><br><span class="line">                    SDImageFormat format;</span><br><span class="line">                    <span class="keyword">if</span> (SDCGImageRefContainsAlpha(image.CGImage)) &#123;</span><br><span class="line">                        format = SDImageFormatPNG;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        format = SDImageFormatJPEG;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//判断图片的格式，用于编码成数据</span></span><br><span class="line">                    data = [[SDWebImageCodersManager sharedInstance] encodedDataWithImage:image format:format];</span><br><span class="line">                &#125;</span><br><span class="line">               <span class="comment">//调用storeImageDataToDisk，将图像数据存储到磁盘</span></span><br><span class="line">                [<span class="keyword">self</span> _storeImageDataToDisk:data forKey:key];</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (completionBlock) &#123;</span><br><span class="line">                <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                    completionBlock();</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (completionBlock) &#123;</span><br><span class="line">            completionBlock();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)_storeImageDataToDisk:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)imageData forKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key  &#123;</span><br><span class="line">    <span class="keyword">if</span> (!imageData || !key) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span>.fileManager fileExistsAtPath:_diskCachePath]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.fileManager createDirectoryAtPath:_diskCachePath withIntermediateDirectories:<span class="literal">YES</span> attributes:<span class="literal">nil</span> error:<span class="literal">NULL</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 根据key获取缓存的路径</span></span><br><span class="line">    <span class="built_in">NSString</span> *cachePathForKey = [<span class="keyword">self</span> defaultCachePathForKey:key];</span><br><span class="line">    <span class="comment">// 转换成URL</span></span><br><span class="line">    <span class="built_in">NSURL</span> *fileURL = [<span class="built_in">NSURL</span> fileURLWithPath:cachePathForKey];</span><br><span class="line">    </span><br><span class="line">    [imageData writeToURL:fileURL options:<span class="keyword">self</span>.config.diskCacheWritingOptions error:<span class="literal">nil</span>];</span><br><span class="line">    </span><br><span class="line">  <span class="comment">//不允许iClound备份</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.config.shouldDisableiCloud) &#123;</span><br><span class="line">        [fileURL setResourceValue:@YES forKey:<span class="built_in">NSURLIsExcludedFromBackupKey</span> error:<span class="literal">nil</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>上面讲得是存储方面的操作，下面讲的是查询和检索的操作</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//查询磁盘缓存中图片是否存在</span></span><br><span class="line">- (<span class="keyword">void</span>)diskImageExistsWithKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key completion:(<span class="keyword">nullable</span> SDWebImageCheckCacheCompletionBlock)completionBlock &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.ioQueue, ^&#123;</span><br><span class="line">        <span class="built_in">BOOL</span> exists = [<span class="keyword">self</span> _diskImageDataExistsWithKey:key];</span><br><span class="line">        <span class="keyword">if</span> (completionBlock) &#123;</span><br><span class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                completionBlock(exists);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面有一个从缓存中获取图片对象的方法，</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//首先检查内存中是否有对应缓存，如果有，则将其取出使用，如果没有，则去检查磁盘中是否有对应的缓存，有的话就使用磁盘中的缓存</span><br><span class="line"> - (nullable UIImage *)imageFromCacheForKey:(nullable NSString *)key &#123;</span><br><span class="line">    // First<span class="built_in"> check </span>the in-memory cache...</span><br><span class="line">    UIImage *image = [self imageFromMemoryCacheForKey:key];</span><br><span class="line">   <span class="built_in"> if </span>(image) &#123;</span><br><span class="line">       <span class="built_in"> return </span>image;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // Second<span class="built_in"> check </span>the disk cache...</span><br><span class="line">    image = [self imageFromDiskCacheForKey:key];</span><br><span class="line">   <span class="built_in"> return </span>image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>还有一个比较复杂的方法</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)diskImageDataForKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">    <span class="keyword">if</span> (!key) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    __block <span class="built_in">NSData</span> *imageData = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">//这个地方为什么要开启一个同步的队列</span></span><br><span class="line">    <span class="built_in">dispatch_sync</span>(<span class="keyword">self</span>.ioQueue, ^&#123;</span><br><span class="line">     <span class="comment">//搜索所有的path以获取data</span></span><br><span class="line">        imageData = [<span class="keyword">self</span> diskImageDataBySearchingAllPathsForKey:key];</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> imageData;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//搜索的策略</span></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)diskImageDataBySearchingAllPathsForKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key &#123;</span><br><span class="line">   <span class="comment">//首先根据默认的缓存路径尝试获取data，如果获取到，则直接返回</span></span><br><span class="line">    <span class="built_in">NSString</span> *defaultPath = [<span class="keyword">self</span> defaultCachePathForKey:key];</span><br><span class="line">    <span class="built_in">NSData</span> *data = [<span class="built_in">NSData</span> dataWithContentsOfFile:defaultPath options:<span class="keyword">self</span>.config.diskCacheReadingOptions error:<span class="literal">nil</span>];</span><br><span class="line">    <span class="keyword">if</span> (data) &#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//在默认路径去除最后的扩展尝试获取data，如果获取到，则直接返回</span></span><br><span class="line">    data = [<span class="built_in">NSData</span> dataWithContentsOfFile:defaultPath.stringByDeletingPathExtension options:<span class="keyword">self</span>.config.diskCacheReadingOptions error:<span class="literal">nil</span>];</span><br><span class="line">    <span class="keyword">if</span> (data) &#123;</span><br><span class="line">        <span class="keyword">return</span> data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt; *customPaths = [<span class="keyword">self</span>.customPaths <span class="keyword">copy</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> *path <span class="keyword">in</span> customPaths) &#123;</span><br><span class="line">     <span class="comment">//尝试从自定义的路径那里获取data，如果获取到，则直接返回</span></span><br><span class="line">        <span class="built_in">NSString</span> *filePath = [<span class="keyword">self</span> cachePathForKey:key inPath:path];</span><br><span class="line">        <span class="built_in">NSData</span> *imageData = [<span class="built_in">NSData</span> dataWithContentsOfFile:filePath options:<span class="keyword">self</span>.config.diskCacheReadingOptions error:<span class="literal">nil</span>];</span><br><span class="line">        <span class="keyword">if</span> (imageData) &#123;</span><br><span class="line">            <span class="keyword">return</span> imageData;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 对自定义路径去除后面的扩展，从这个路径尝试获取data，如果获取到则直接返回</span></span><br><span class="line">        imageData = [<span class="built_in">NSData</span> dataWithContentsOfFile:filePath.stringByDeletingPathExtension options:<span class="keyword">self</span>.config.diskCacheReadingOptions error:<span class="literal">nil</span>];</span><br><span class="line">        <span class="keyword">if</span> (imageData) &#123;</span><br><span class="line">            <span class="keyword">return</span> imageData;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>上面获取到的都是NSData，需要将NSData转换成UIImage对象，需要解码，解码的相关的方法为：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (nullable <span class="type">UIImage</span> *)diskImageForKey:(nullable <span class="type">NSString</span> *)key <span class="class"><span class="keyword">data</span>:(<span class="title">nullable</span> <span class="type">NSData</span> *)<span class="keyword">data</span> options:(<span class="type">SDImageCacheOptions</span>)options &#123;</span></span><br><span class="line"><span class="class">    <span class="title">if</span> (<span class="title">data</span>) &#123;</span></span><br><span class="line"><span class="class">        <span class="type">UIImage</span> *<span class="title">image</span> = [[<span class="type">SDWebImageCodersManager</span> <span class="title">sharedInstance</span>] <span class="title">decodedImageWithData</span>:<span class="title">data</span>];</span></span><br><span class="line"><span class="class">        <span class="title">image</span> = [<span class="title">self</span> <span class="title">scaledImageForKey</span>:<span class="title">key</span> <span class="title">image</span>:<span class="title">image</span>];</span></span><br><span class="line"><span class="class">        <span class="title">if</span> (<span class="title">self</span>.<span class="title">config</span>.<span class="title">shouldDecompressImages</span>) &#123;</span></span><br><span class="line"><span class="class">            <span class="type">BOOL</span> <span class="title">shouldScaleDown</span> = <span class="title">options</span> &amp; <span class="type">SDImageCacheScaleDownLargeImages</span>;</span></span><br><span class="line"><span class="class">            <span class="title">image</span> = [[<span class="type">SDWebImageCodersManager</span> <span class="title">sharedInstance</span>] <span class="title">decompressedImageWithImage</span>:<span class="title">image</span> <span class="title">data</span>:&amp;<span class="title">data</span> <span class="title">options</span>:@&#123;<span class="type">SDWebImageCoderScaleDownLargeImagesKey</span>: @(<span class="title">shouldScaleDown</span>)&#125;];</span></span><br><span class="line">        &#125;</span><br><span class="line">        return image;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        return nil;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后，获取相关的NSOperation实例</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSOperation</span> *)queryCacheOperationForKey:(<span class="built_in">NSString</span> *)key done:(SDCacheQueryCompletedBlock)doneBlock &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> queryCacheOperationForKey:key options:<span class="number">0</span> done:doneBlock];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSOperation</span> *)queryCacheOperationForKey:(<span class="keyword">nullable</span> <span class="built_in">NSString</span> *)key options:(SDImageCacheOptions)options done:(<span class="keyword">nullable</span> SDCacheQueryCompletedBlock)doneBlock &#123;</span><br><span class="line">    <span class="keyword">if</span> (!key) &#123;</span><br><span class="line">        <span class="keyword">if</span> (doneBlock) &#123;</span><br><span class="line">            doneBlock(<span class="literal">nil</span>, <span class="literal">nil</span>, SDImageCacheTypeNone);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 从内存中获取cache 的image</span></span><br><span class="line">    <span class="built_in">UIImage</span> *image = [<span class="keyword">self</span> imageFromMemoryCacheForKey:key];</span><br><span class="line">    <span class="built_in">BOOL</span> shouldQueryMemoryOnly = (image &amp;&amp; !(options &amp; SDImageCacheQueryDataWhenInMemory));</span><br><span class="line"><span class="comment">//只需要去查询内存，不需要查询磁盘</span></span><br><span class="line">    <span class="keyword">if</span> (shouldQueryMemoryOnly) &#123;</span><br><span class="line">        <span class="keyword">if</span> (doneBlock) &#123;</span><br><span class="line">            doneBlock(image, <span class="literal">nil</span>, SDImageCacheTypeMemory);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSOperation</span> *operation = [<span class="built_in">NSOperation</span> new];</span><br><span class="line">    <span class="keyword">void</span>(^queryDiskBlock)(<span class="keyword">void</span>) =  ^&#123;</span><br><span class="line">        <span class="keyword">if</span> (operation.isCancelled) &#123;</span><br><span class="line">            <span class="comment">// do not call the completion if cancelled</span></span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">            <span class="built_in">NSData</span> *diskData = [<span class="keyword">self</span> diskImageDataBySearchingAllPathsForKey:key];</span><br><span class="line">            <span class="built_in">UIImage</span> *diskImage;</span><br><span class="line">            SDImageCacheType cacheType = SDImageCacheTypeNone;</span><br><span class="line">            <span class="keyword">if</span> (image) &#123;</span><br><span class="line">                <span class="comment">// the image is from in-memory cache</span></span><br><span class="line">                diskImage = image;</span><br><span class="line">                cacheType = SDImageCacheTypeMemory;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (diskData) &#123;</span><br><span class="line">                cacheType = SDImageCacheTypeDisk;</span><br><span class="line">                <span class="comment">// decode image data only if in-memory cache missed</span></span><br><span class="line">                diskImage = [<span class="keyword">self</span> diskImageForKey:key data:diskData options:options];</span><br><span class="line">                <span class="keyword">if</span> (diskImage &amp;&amp; <span class="keyword">self</span>.config.shouldCacheImagesInMemory) &#123;</span><br><span class="line">                    <span class="built_in">NSUInteger</span> cost = diskImage.sd_memoryCost;</span><br><span class="line">                    [<span class="keyword">self</span>.memCache setObject:diskImage forKey:key cost:cost];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (doneBlock) &#123;</span><br><span class="line">                <span class="comment">//当需要同步查询磁盘的数据时，直接调用doneBlock</span></span><br><span class="line">                <span class="keyword">if</span> (options &amp; SDImageCacheQueryDiskSync) &#123;</span><br><span class="line">                    doneBlock(diskImage, diskData, cacheType);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                  <span class="comment">//当需要异步查询磁盘数据，同步查询的内存数据，使用dispatch_async</span></span><br><span class="line">                    <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</span><br><span class="line">                        doneBlock(diskImage, diskData, cacheType);</span><br><span class="line">                    &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">//当需要同步执行这个block时，不需要开辟新的线程，使用原本的线程就好</span></span><br><span class="line">    <span class="keyword">if</span> (options &amp; SDImageCacheQueryDiskSync) &#123;</span><br><span class="line">        queryDiskBlock();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//需要异步查询时，用ioQueue执行queryDiskBlock</span></span><br><span class="line">        <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.ioQueue, queryDiskBlock);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> operation;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码目前就先看到这里，到这里留有几个疑问：一是SDWebImageCompat.h的实现，里面主要是判断图片的格式；二是SDWebImageCoderManager中的实现，这个类中的实现是将图片编码和解码以及压缩（NSData和UIImage对象的转换），三是各个线程的开辟和使用，特别是最后两个方法涉及的，有点摸不清头脑，需要自己理顺一下。</p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/077638fb6756">SDWebImage源码阅读(一)</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/81af9952c015">SDWebImage源码阅读(二)</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/1c67b94f1f9b">SDWebImage源码阅读(三)</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c23863c23265">SDWebImage源码阅读(四)</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/fec6c0b8ed1b">SDWebImage源码阅读(五)</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/c06e0608bdb5">SDWebImage源码阅读(六)</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%94%EF%BC%89/" rel="next" title="SDWebImage源码阅读（五）">
+                <i class="fa fa-chevron-left"></i> SDWebImage源码阅读（五）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/21/SDWebImage%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%83%EF%BC%89/" rel="prev" title="SDWebImage源码阅读（七）">
+                SDWebImage源码阅读（七） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/luoyexixi.jpg"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">落叶兮兮</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: '9DPBhvJGT7M2Iv44IjXtGI36-gzGzoHsz',
+        appKey: 'oTlAxx65Hk7vT8sUX0Ehtwqa',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

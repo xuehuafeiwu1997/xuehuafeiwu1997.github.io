@@ -81,20 +81,17 @@
 
 
 
-<meta name="description" content="pop框架是Google推出的用于处理iOS动画的一个特别好用的框架如果对这个框架没有了解的，可与去看一下官方提供的资料 这次我主要使用pop框架实现一个简单的弹簧效果对应的demo为Demo 实现文件名称是ThirdViewController最终的效果图为： 首先，定义一个UIView属性 1@property (nonatomic, strong) UIView *myView; 将其添加到">
+<meta name="description" content="上一篇MJRefresh源码阅读（一）中介绍了MJRefreshComponent的实现，这篇介绍MJRefreshHeader中的实现。MJRefreshHeader是继承自MJRefreshComponent，是下拉刷新控件：负责监控用户下拉刷新的状态。在MJRefreshComponent中给UIScrollView的contentSize和congentOffSet属性添加了KVO监听,所">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ios动画效果四：使用pop框架实现弹簧效果">
-<meta property="og:url" content="http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/index.html">
+<meta property="og:title" content="MJRefresh源码阅读（二）">
+<meta property="og:url" content="http://example.com/2021/02/21/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%8C%EF%BC%89/index.html">
 <meta property="og:site_name" content="落叶兮兮">
-<meta property="og:description" content="pop框架是Google推出的用于处理iOS动画的一个特别好用的框架如果对这个框架没有了解的，可与去看一下官方提供的资料 这次我主要使用pop框架实现一个简单的弹簧效果对应的demo为Demo 实现文件名称是ThirdViewController最终的效果图为： 首先，定义一个UIView属性 1@property (nonatomic, strong) UIView *myView; 将其添加到">
+<meta property="og:description" content="上一篇MJRefresh源码阅读（一）中介绍了MJRefreshComponent的实现，这篇介绍MJRefreshHeader中的实现。MJRefreshHeader是继承自MJRefreshComponent，是下拉刷新控件：负责监控用户下拉刷新的状态。在MJRefreshComponent中给UIScrollView的contentSize和congentOffSet属性添加了KVO监听,所">
 <meta property="og:locale">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-2681fe3499ab5ec9.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/18811075-e0122d953a07f624.gif?imageMogr2/auto-orient/strip">
-<meta property="article:published_time" content="2021-02-19T02:33:16.000Z">
-<meta property="article:modified_time" content="2021-02-19T02:38:45.358Z">
+<meta property="article:published_time" content="2021-02-21T03:22:30.000Z">
+<meta property="article:modified_time" content="2021-02-23T03:21:24.218Z">
 <meta property="article:author" content="落叶兮兮">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/18811075-2681fe3499ab5ec9.gif?imageMogr2/auto-orient/strip">
 
 
 
@@ -124,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://example.com/2021/02/19/ios动画效果四：使用Pop框架实现弹簧效果/"/>
+  <link rel="canonical" href="http://example.com/2021/02/21/MJRefresh源码阅读（二）/"/>
 
 
 
 
 
-  <title>ios动画效果四：使用pop框架实现弹簧效果 | 落叶兮兮</title>
+  <title>MJRefresh源码阅读（二） | 落叶兮兮</title>
   
 
 
@@ -268,7 +265,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/21/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%8C%EF%BC%89/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -285,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ios动画效果四：使用pop框架实现弹簧效果</h1>
+          <h1 class="post-title" itemprop="name headline">MJRefresh源码阅读（二）</h1>
         
 
         <div class="post-meta">
@@ -297,8 +294,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-19T10:33:16+08:00">
-                2021-02-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-21T11:22:30+08:00">
+                2021-02-21
               </time>
             
 
@@ -320,8 +317,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS%E5%BC%80%E5%8F%91%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E6%8E%A2%E7%A9%B6/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS开发动画效果探究</span>
+                  <a href="/categories/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB/" itemprop="url" rel="index">
+                    <span itemprop="name">MJRefresh源码阅读</span>
                   </a>
                 </span>
 
@@ -338,8 +335,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/19/ios%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E5%9B%9B%EF%BC%9A%E4%BD%BF%E7%94%A8Pop%E6%A1%86%E6%9E%B6%E5%AE%9E%E7%8E%B0%E5%BC%B9%E7%B0%A7%E6%95%88%E6%9E%9C/" itemprop="commentCount"></span>
+                <a href="/2021/02/21/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%8C%EF%BC%89/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2021/02/21/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%BA%8C%EF%BC%89/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -372,29 +369,13 @@
       
 
       
-        <p>pop框架是Google推出的用于处理iOS动画的一个特别好用的框架<br>如果对这个框架没有了解的，可与去看一下官方提供的资料</p>
-<p>这次我主要使用pop框架实现一个简单的弹簧效果<br>对应的demo为<br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo</a></p>
-<p>实现文件名称是ThirdViewController<br>最终的效果图为：<br><img src="https://upload-images.jianshu.io/upload_images/18811075-2681fe3499ab5ec9.gif?imageMogr2/auto-orient/strip" alt="pop框架实现弹簧动画.gif"></p>
-<p>首先，定义一个UIView属性</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">UIView</span> *myView;</span><br></pre></td></tr></table></figure>
-<p>将其添加到view上</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIView</span> *)myView &#123;</span><br><span class="line">    <span class="keyword">if</span> (_myView) &#123;</span><br><span class="line">        <span class="keyword">return</span> _myView;</span><br><span class="line">    &#125;</span><br><span class="line">    _myView = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>)];</span><br><span class="line">    _myView.backgroundColor = [<span class="built_in">UIColor</span> yellowColor];</span><br><span class="line">    <span class="keyword">return</span> _myView;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">// Do any additional setup after loading the view.</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">self</span>.title = <span class="string">@&quot;pop框架实现弹簧动画&quot;</span>;</span><br><span class="line">    <span class="keyword">self</span>.navigationController.navigationBar.translucent = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</span><br><span class="line">    </span><br><span class="line"><span class="comment">//    [self.view addSubview:self.tableView];</span></span><br><span class="line">    <span class="keyword">self</span>.myView.center = <span class="keyword">self</span>.view.center;</span><br><span class="line">    [<span class="keyword">self</span>.view addSubview:<span class="keyword">self</span>.myView];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>上一篇<a href="%5Bhttps://www.jianshu.com/p/6e4ab07292a5%5D(https://www.jianshu.com/p/6e4ab07292a5)">MJRefresh源码阅读（一）</a>中介绍了MJRefreshComponent的实现，这篇介绍MJRefreshHeader中的实现。<br>MJRefreshHeader是继承自MJRefreshComponent，是下拉刷新控件：负责监控用户下拉刷新的状态。在MJRefreshComponent中给UIScrollView的contentSize和congentOffSet属性添加了KVO监听,所以在下拉刷新的时候，contentOffset就会发生变化，然后会调用相应的方法：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[self scrollViewContentSizeDidChange:change]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>在MJRefreshHeader中对该方法进行重写</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">//在该方法中通过UIScrollView的contentOffset偏移的大小和UIScrollView的topInset以及刷新的UIView的height高度的比较来判断出当前处于什么状态，给状态state赋值，而在前面有给手势pan的state添加kvo监听，pan手势取消时state发生变化会调用[self scrollViewPanStateDidChange:change];在子类中重写这个方法进行相应的逻辑处理</span></span><br><span class="line"><span class="xml">- (void)scrollViewContentOffsetDidChange:(NSDictionary *)change </span><span class="template-variable">&#123;&#123;</span></span><br><span class="line"><span class="template-variable">    <span class="name">[super scrollViewContentOffsetDidChange:change]</span>;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">    // 在刷新的refreshing状态</span></span><br><span class="line"><span class="template-variable">    if (<span class="name">self.state</span> == MJRefreshStateRefreshing) &#123;</span></span><br><span class="line"><span class="template-variable">        [self resetInset];</span></span><br><span class="line"><span class="template-variable">        return;</span></span><br><span class="line"><span class="template-variable">    &#125;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">    // 跳转到下一个控制器时，contentInset可能会变</span></span><br><span class="line"><span class="template-variable">    _scrollViewOriginalInset = self.scrollView.mj_inset;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">    // 当前的contentOffset</span></span><br><span class="line"><span class="template-variable">    CGFloat offsetY = self.scrollView.mj_offsetY;</span></span><br><span class="line"><span class="template-variable">    // 头部控件刚好出现的offsetY</span></span><br><span class="line"><span class="template-variable">    CGFloat happenOffsetY = - self.scrollViewOriginalInset.top;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">    // 如果是向上滚动到看不见头部控件，直接返回</span></span><br><span class="line"><span class="template-variable">    // &gt;= -&gt; &gt;</span></span><br><span class="line"><span class="template-variable">    if (<span class="name">offsetY</span> &gt; happenOffsetY) return;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">    // 普通 和 即将刷新 的临界点</span></span><br><span class="line"><span class="template-variable">    CGFloat normal2pullingOffsetY = happenOffsetY - self.mj_h;</span></span><br><span class="line"><span class="template-variable">    CGFloat pullingPercent = (<span class="name">happenOffsetY</span> - offsetY) / self.mj_h;</span></span><br><span class="line"><span class="template-variable">    </span></span><br><span class="line"><span class="template-variable">    if (<span class="name">self.scrollView.isDragging</span>) &#123; // 如果正在拖拽</span></span><br><span class="line"><span class="template-variable">        self.pullingPercent = pullingPercent;</span></span><br><span class="line"><span class="template-variable">        if (<span class="name">self.state</span> == MJRefreshStateIdle &amp;&amp; offsetY &lt; normal2pullingOffsetY) &#123;</span></span><br><span class="line"><span class="template-variable">            // 转为即将刷新状态</span></span><br><span class="line"><span class="template-variable">            self.state = MJRefreshStatePulling;</span></span><br><span class="line"><span class="template-variable">        &#125; else if (<span class="name">self.state</span> == MJRefreshStatePulling &amp;&amp; offsetY &gt;= normal2pullingOffsetY) &#123;</span></span><br><span class="line"><span class="template-variable">            // 转为普通状态</span></span><br><span class="line"><span class="template-variable">            self.state = MJRefreshStateIdle;</span></span><br><span class="line"><span class="template-variable">        &#125;</span></span><br><span class="line"><span class="template-variable">    &#125; else if (<span class="name">self.state</span> == MJRefreshStatePulling) &#123;// 即将刷新 &amp;&amp; 手松开</span></span><br><span class="line"><span class="template-variable">        // 开始刷新</span></span><br><span class="line"><span class="template-variable">        [self beginRefreshing];</span></span><br><span class="line"><span class="template-variable">    &#125; else if (<span class="name">pullingPercent</span> &lt; <span class="number">1</span>) &#123;</span></span><br><span class="line"><span class="template-variable">        self.pullingPercent = pullingPercent;</span></span><br><span class="line"><span class="template-variable">    &#125;</span></span><br><span class="line"><span class="template-variable">&#125;</span></span><br></pre></td></tr></table></figure>
 
-<p>在点击屏幕时，实现相应的代码效果</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="comment">//初始化弹簧动画</span></span><br><span class="line">    POPSpringAnimation *springAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerBounds];</span><br><span class="line">    springAnimation.springSpeed = <span class="number">0</span>;<span class="comment">//设置动画的速度</span></span><br><span class="line">    springAnimation.springBounciness = <span class="number">10</span>;<span class="comment">//设置弹性大小</span></span><br><span class="line">    springAnimation.dynamicsFriction = <span class="number">10</span>;<span class="comment">//设置阻力的大小</span></span><br><span class="line">    springAnimation.dynamicsTension = <span class="number">100</span>;<span class="comment">//设置张力的大小</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.myView.frame.size.width == <span class="number">100</span>) &#123;</span><br><span class="line">        springAnimation.toValue = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">50</span>, <span class="number">50</span>)];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        springAnimation.fromValue = [<span class="built_in">NSValue</span> valueWithCGRect:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">100</span>)];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//添加动画</span></span><br><span class="line">    [<span class="keyword">self</span>.myView.layer pop_addAnimation:springAnimation forKey:<span class="string">@&quot;animation&quot;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>#总结<br>最终的效果图<br><img src="https://upload-images.jianshu.io/upload_images/18811075-e0122d953a07f624.gif?imageMogr2/auto-orient/strip" alt="pop框架实现弹簧动画.gif"><br><a target="_blank" rel="noopener" href="https://github.com/xuehuafeiwu1997/Animation-explore.git">Demo地址</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/59f9f9ff73a5">iOS开发中动画效果的探究(一)</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/d55a5960f826">iOS动画效果的探究二：UIView Animation实现动画
-</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/52d8a97e1942">iOS动画效果三：CABAsicAnimation实现平移、旋转和放大</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/88fe1d9c8f4e">ios动画效果四：使用Pop框架实现弹簧效果</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b7a01405c521">iOS动画效果五：CABasicAnimation实现绕定点旋转的效果</a>]</p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/0e9047bdce24">iOS动画效果六：实现自定义的push转场动画</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/e94415afcc63">iOS动画效果七：实现自定义present转场动画效果
-</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a0a4c8086d25">iOS动画效果八:实现类似系统的测滑返回效果
-</a></p>
+<p>后面看到在setState方法中，有对刷新时间做了存储，使用的是NSUserDefault</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//保存刷新时间</span></span><br><span class="line">[[<span class="built_in">NSUserDefaults</span> standardUserDefaults] setObject:[<span class="built_in">NSDate</span> date] forKey:<span class="keyword">self</span>.lastUpdatedTimeKey];</span><br><span class="line"> [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] synchronize];</span><br><span class="line"><span class="comment">//取出刷新时间</span></span><br><span class="line">- (<span class="built_in">NSDate</span> *)lastUpdatedTime</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [[<span class="built_in">NSUserDefaults</span> standardUserDefaults] objectForKey:<span class="keyword">self</span>.lastUpdatedTimeKey];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -419,8 +400,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%B8%89%EF%BC%9ACABAsicAnimation%E5%AE%9E%E7%8E%B0%E5%B9%B3%E7%A7%BB%E3%80%81%E6%97%8B%E8%BD%AC%E5%92%8C%E6%94%BE%E5%A4%A7/" rel="next" title="ios动画效果三：CABasicAnimation实现平移、旋转和放大">
-                <i class="fa fa-chevron-left"></i> ios动画效果三：CABasicAnimation实现平移、旋转和放大
+              <a href="/2021/02/21/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%80%EF%BC%89/" rel="next" title="MJRefresh源码阅读（一）">
+                <i class="fa fa-chevron-left"></i> MJRefresh源码阅读（一）
               </a>
             
           </div>
@@ -429,8 +410,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/02/19/iOS%E5%8A%A8%E7%94%BB%E6%95%88%E6%9E%9C%E4%BA%94%EF%BC%9ACABasicAnimation%E5%AE%9E%E7%8E%B0%E7%BB%95%E5%AE%9A%E7%82%B9%E6%97%8B%E8%BD%AC%E7%9A%84%E6%95%88%E6%9E%9C/" rel="prev" title="ios动画效果五：CABasicAnimation实现定点旋转的效果">
-                ios动画效果五：CABasicAnimation实现定点旋转的效果 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/02/21/MJRefresh%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="MJRefresh源码阅读（三）">
+                MJRefresh源码阅读（三） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
